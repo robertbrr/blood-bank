@@ -37,7 +37,6 @@ function App() {
           <Route path="/admin/doctors/edit/:id" element={<> <AdminNavbar/> <DoctorEdit/> </>}/>
           <Route path="/admin/doctors/create" element={<> <AdminNavbar /> <DoctorCreate /> </>}/>
 
-        
           <Route path='/donor/home' element={<> <DonorNavbar/> <DonorPage/> </>}/>
           <Route path='/donor/centers' element={<> <DonorNavbar/> <CenterListing/> </>}/>
           <Route path='/donor/edit' element={<> <DonorNavbar/> <DonorEdit/> </>}/>

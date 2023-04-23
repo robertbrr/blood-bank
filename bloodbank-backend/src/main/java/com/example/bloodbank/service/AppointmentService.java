@@ -20,4 +20,6 @@ public interface AppointmentService {
     void deleteByDonorId(UUID id);
 
     void confirm(long id);
+
+    List<LocalDate> getInvalidDates(Long donationCenterId, Integer maxDonationsPerDay, LocalDate dateLimit);
 }
