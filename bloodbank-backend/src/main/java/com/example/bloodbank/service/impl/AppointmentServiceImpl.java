@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional;
 import java.security.InvalidParameterException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -77,5 +78,18 @@ public class AppointmentServiceImpl implements AppointmentService {
         if(appointment.isEmpty()) throw new InvalidParameterException("Appointment not found!");
         appointment.get().setStatus("CONFIRMED");
         appointmentRepository.save(appointment.get());
+    }
+
+    @Override
+    public List<LocalDate> getInvalidDates(Long donationCenterId, Integer maxDonationsPerDay, LocalDate dateLimit) {
+        //date from today to date limit (inclusive)
+        List<LocalDate> datesFull = new ArrayList<>();
+        for(LocalDate date = LocalDate.now(); !date.isAfter(dateLimit); date=date.plusDays(1)){
+            long count = appointmentRepository.countByDonationCenter_IdAndDate(donationCenterId,date);
+            if(count >= maxDonationsPerDay){
+                datesFull.add(date);
+            }
+        }
+       return datesFull;
     }
 }

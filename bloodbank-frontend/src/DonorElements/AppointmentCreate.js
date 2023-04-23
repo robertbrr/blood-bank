@@ -2,6 +2,11 @@ import React, { useState ,useEffect} from 'react';
 import {useNavigate, useLocation } from "react-router-dom";
 import UserContext from '../user-context';
 import { useContext } from 'react';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import '../styles.css';
 
 const AppointmentCreate = () => {
@@ -9,20 +14,33 @@ const AppointmentCreate = () => {
   //get uuid from state
   const [user, setUser] = useContext(UserContext)
   const navigate = useNavigate();
+  const months_available = 3;
+  const currDate = new Date().toISOString().split("T")[0];
   const [date,setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [fullDays, setFullDays] = useState([]);
   const [errorMessage,setErrorMessage] = useState('');
   const {state:center} = useLocation();
 
-  useEffect(()=>{console.log(date)});
+   useEffect(()=>{
+    //fetch full days
+    fetch(`http://localhost:8080/v1/donation-centers/${center.id}/full-days?maxDonationsPerDay=${center.maxDonationsPerDay}` + 
+          `&dateLimit=${convertToDate(dayjs(currDate).add(months_available, 'month'))}`)
+        .then((res) => {
+          console.log(res);
+          return res.json();
+        })
+        .then(res =>{
+          console.log(res)
+          setFullDays(res)
+        })
+        .catch(e => {
+          console.log(e.message);
+        })},[]);
 
-  const handleDateChange = event => {
-    setDate(event.target.value);
-    // console.log(date);
-  };
 
   //from date to LocalDate
-  const convertToDate = () => {
-    const selDate = new Date(date)
+  const convertToDate = (date_param) => {
+    const selDate = new Date(date_param)
     const year = selDate.getFullYear();
     const month = selDate.getMonth() + 1; //0 index in JS
     const day = selDate.getDate();
@@ -34,6 +52,21 @@ const AppointmentCreate = () => {
     return localDate;
   };
 
+  
+  //disable dates
+  //i made it so a user can only schedule x months in advance
+  function disableDates(date) {
+    let convertedDate = convertToDate(date);
+    return dayjs(date).isBefore(dayjs(currDate))
+    || dayjs(date).isAfter(dayjs(currDate).add(months_available, 'month'))
+    || date.getDay() === 0 || date.getDay() === 6 || fullDays.includes(convertedDate); 
+  }
+
+  function handleDateChange(date) {
+    setDate(date);
+    console.log(date);
+  };
+
   //handle form submit
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -43,7 +76,7 @@ const AppointmentCreate = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(
         { donorId: user.id,
-          date: convertToDate(),
+          date: convertToDate(date),
           donationCenter: center
         })
     };
@@ -75,7 +108,16 @@ const AppointmentCreate = () => {
 
         <div className="input-container">
           <label>Date </label>
-          <input type="date" value = {date} onChange={(e)=>handleDateChange(e)} />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={['DatePicker']}>
+              <DatePicker 
+                defaultValue = {dayjs(new Date().toISOString().split("T")[0])}
+                
+                shouldDisableDate={(e)=>disableDates(e.$d)}
+                onChange={(e)=>handleDateChange(e.$d)}
+              />
+           </DemoContainer>
+          </LocalizationProvider> 
         </div>
 
         {errorMessage && <div className="error"> {errorMessage} </div>}

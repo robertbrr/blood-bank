@@ -1,6 +1,7 @@
 const DonorPage = () => {
-  return (
+  return (<div>
             <h1>WELCOME, DONOR!</h1>
+        </div>
   );
 };
  

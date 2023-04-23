@@ -72,4 +72,5 @@ public class AppointmentController {
         appointmentService.confirm(id);
         return ResponseEntity.ok("Appointment confirmed!");
     }
+
 }
