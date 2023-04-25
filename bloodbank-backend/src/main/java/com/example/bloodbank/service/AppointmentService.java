@@ -2,6 +2,7 @@ package com.example.bloodbank.service;
 
 import com.example.bloodbank.dto.AppointmentCreateDTO;
 import com.example.bloodbank.entity.Appointment;
+import org.springframework.data.domain.Page;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,9 +14,13 @@ public interface AppointmentService {
 
     void deleteById(Long id,LocalDate date);
 
-    List<Appointment> findByDonationCenter_Id(Long id);
+    List<Appointment> findByDonationCenter_Id(Long id, Integer pageNo, Integer pageSize);
+
+    List<Appointment> findByDonationCenter_IdAndDate(Long id, LocalDate date);
 
     List<Appointment> findByDonorId(UUID id);
+
+    long countAppointmentsByDonationCenter_Id(Long id);
 
     void deleteByDonorId(UUID id);
 
