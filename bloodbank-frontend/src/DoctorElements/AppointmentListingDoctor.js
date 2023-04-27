@@ -30,24 +30,6 @@ const AppointmentListingDoctor = () => {
         {id: 2, name: "Today's appointments"}
     ]
 
-    const fetchAppointmentCount = () =>{
-        fetch(`http://localhost:8080/v1/donation-centers/${center.id}/appointments/count-all`)
-        .then(async res => {
-            console.log(res);
-            if(!res.ok){
-              const text = await res.text();
-              throw new Error(text);
-            }
-            return res.json();
-        })
-        .then((res) => {
-            console.log(res);
-            setPageCount(Math.ceil(res/pageSize));
-        }).catch((err) => {
-            console.log(err.message);
-        })
-    }
-
     //confirm appt handler    
     const ConfirmAppointment = (id) =>{
         if (window.confirm('Are you sure you want to confirm the selected appointment?')) {
@@ -65,7 +47,7 @@ const AppointmentListingDoctor = () => {
             })
             .then((res) => {
                 alert(res);
-                if(currOpt == 1){
+                if(currOpt === 1){
                     fetchAllAppointments(pageNo,pageSize);
                 }else
                     fetchTodayAppointments();
@@ -84,7 +66,8 @@ const AppointmentListingDoctor = () => {
             })
             .then((resp) => {
                 console.log(resp);
-                appointmentsDataChange(resp);
+                appointmentsDataChange(resp.content);
+                setPageCount(resp.totalPages);
             })
             .catch((err) => {
                 console.log(err.message);
@@ -106,22 +89,7 @@ const AppointmentListingDoctor = () => {
             })
     }
 
-    //fetch all appts
-    function fetchAllAppointments(pageNoParam, pageSizeParam){
-        fetch(`http://localhost:8080/v1/donation-centers/${center.id}/appointments?pageNo=${pageNoParam-1}&pageSize=${pageSizeParam}`)
-            .then((res) => {
-                return res.json();
-            })
-            .then((resp) => {
-                console.log(resp);
-                appointmentsDataChange(resp);
-            })
-            .catch((err) => {
-                console.log(err.message);
-            })
-    }
-
-    useEffect(() => {fetchAllAppointments(pageNo,pageSize); fetchAppointmentCount()},[]);
+    useEffect(() => {fetchAllAppointments(pageNo,pageSize)},[]);
 
     const handlePageChange = (event,value) => {
         setPageNo(value);
@@ -156,7 +124,7 @@ const AppointmentListingDoctor = () => {
                                         <td>{item.date}</td>
                                         <td>{item.status}</td>
                                         <td>{item.donor.firstName +' ' + item.donor.lastName}</td>
-                                        <td>{item.status == "PENDING" &&<button onClick={() => { ConfirmAppointment(item.id) }} type="edit">Confirm</button>}
+                                        <td>{item.status === "PENDING" && <button onClick={() => { ConfirmAppointment(item.id) }} type="edit">Confirm</button>}
                                         </td>
                                     </tr>
                                 ))

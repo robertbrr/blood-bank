@@ -6,6 +6,7 @@ import com.example.bloodbank.entity.Appointment;
 import com.example.bloodbank.repository.AppointmentRepository;
 import com.example.bloodbank.service.AppointmentService;
 import com.example.bloodbank.service.mapper.AppointmentMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -60,7 +61,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<Appointment> findByDonationCenter_Id(Long id, Integer pageNo, Integer pageSize){
+    public Page<Appointment> findByDonationCenter_Id(Long id, Integer pageNo, Integer pageSize){
         return appointmentRepository.findByDonationCenter_Id(id, PageRequest.of(pageNo,pageSize, Sort.by("date").descending()));
     }
 
