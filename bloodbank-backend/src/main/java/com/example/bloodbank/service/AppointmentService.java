@@ -14,13 +14,11 @@ public interface AppointmentService {
 
     void deleteById(Long id,LocalDate date);
 
-    List<Appointment> findByDonationCenter_Id(Long id, Integer pageNo, Integer pageSize);
+    Page<Appointment> findByDonationCenter_Id(Long id, Integer pageNo, Integer pageSize);
 
     List<Appointment> findByDonationCenter_IdAndDate(Long id, LocalDate date);
 
     List<Appointment> findByDonorId(UUID id);
-
-    long countAppointmentsByDonationCenter_Id(Long id);
 
     void deleteByDonorId(UUID id);
 

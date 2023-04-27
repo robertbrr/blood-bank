@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.InvalidParameterException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -65,10 +64,10 @@ public class AppointmentController {
     }
 
     @GetMapping("donation-centers/{id}/appointments")
-    ResponseEntity<List<Appointment>> findAppointmentsByCenter(@PathVariable("id") long id,
+    ResponseEntity<Page<Appointment>> findAppointmentsByCenter(@PathVariable("id") long id,
                                                                @RequestParam("pageNo") int pageNo,
                                                                @RequestParam("pageSize")int pageSize){
-        List<Appointment> appointments = appointmentService.findByDonationCenter_Id(id,pageNo,pageSize);
+        Page<Appointment> appointments = appointmentService.findByDonationCenter_Id(id,pageNo,pageSize);
         return ResponseEntity.ok(appointments);
     }
 
@@ -76,11 +75,6 @@ public class AppointmentController {
     ResponseEntity<List<Appointment>> findAppointmentsByCenterToday(@PathVariable("id") long id){
         List<Appointment> appointments=appointmentService.findByDonationCenter_IdAndDate(id,LocalDate.now());
         return ResponseEntity.ok(appointments);
-    }
-
-    @GetMapping("donation-centers/{id}/appointments/count-all")
-    ResponseEntity<Long> countAppointmentsByCenter(@PathVariable("id") long id){
-        return ResponseEntity.ok(appointmentService.countAppointmentsByDonationCenter_Id(id));
     }
 
     @PutMapping("appointments/{id}/confirm")
