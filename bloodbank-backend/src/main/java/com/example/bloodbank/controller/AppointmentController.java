@@ -77,11 +77,6 @@ public class AppointmentController {
         return ResponseEntity.ok(appointments);
     }
 
-    @GetMapping("donation-centers/{id}/appointments/count-all")
-    ResponseEntity<Long> countAppointmentsByCenter(@PathVariable("id") long id){
-        return ResponseEntity.ok(appointmentService.countAppointmentsByDonationCenter_Id(id));
-    }
-
     @PutMapping("appointments/{id}/confirm")
     ResponseEntity<String> confirmAppointment(@PathVariable long id){
         appointmentService.confirm(id);

@@ -75,10 +75,6 @@ public class AppointmentServiceImpl implements AppointmentService {
         return this.appointmentRepository.findByDonor_Id(id);
     }
 
-    @Override
-    public long countAppointmentsByDonationCenter_Id(Long id) {
-        return appointmentRepository.countByDonationCenter_Id(id);
-    }
 
     @Override
     public void deleteByDonorId(UUID id){

@@ -20,8 +20,6 @@ public interface AppointmentService {
 
     List<Appointment> findByDonorId(UUID id);
 
-    long countAppointmentsByDonationCenter_Id(Long id);
-
     void deleteByDonorId(UUID id);
 
     void confirm(long id);

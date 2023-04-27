@@ -17,8 +17,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
 
     List<Appointment> findByDonationCenter_IdAndDate(Long id, LocalDate date);
 
-    long countByDonationCenter_Id(Long id);
-
     List<Appointment> findByDonor_Id(UUID id);
 
     void deleteByDonor_Id(UUID id);
