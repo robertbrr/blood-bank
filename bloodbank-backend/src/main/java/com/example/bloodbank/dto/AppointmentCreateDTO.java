@@ -10,6 +10,7 @@ public class AppointmentCreateDTO {
     private DonationCenter donationCenter;
     private UUID donorId;
     private LocalDate date;
+    private String reminderType;
 
     public DonationCenter getDonationCenter() {
         return donationCenter;
@@ -33,5 +34,13 @@ public class AppointmentCreateDTO {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public String getReminderType() {
+        return reminderType;
+    }
+
+    public void setReminderType(String reminderType) {
+        this.reminderType = reminderType;
     }
 }

@@ -20,6 +20,9 @@ public class Appointment {
 
     private String status;
 
+    //should I change this to an enum? most likely
+    private String reminderType;
+
     public Long getId() {
         return id;
     }
@@ -58,6 +61,14 @@ public class Appointment {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getReminderType() {
+        return reminderType;
+    }
+
+    public void setReminderType(String reminderType) {
+        this.reminderType = reminderType;
     }
 
     @Override

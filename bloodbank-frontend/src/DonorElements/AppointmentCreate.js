@@ -21,7 +21,14 @@ const AppointmentCreate = () => {
   const [errorMessage,setErrorMessage] = useState('');
   const {state:center} = useLocation();
 
-   useEffect(()=>{
+  const options = [
+    {id: 1, name: "Email"},
+    {id: 2, name: "SMS"}
+  ]
+
+  const [reminderType, setReminderType] = useState(options[0].name);
+
+  useEffect(()=>{
     //fetch full days
     fetch(`http://localhost:8080/v1/donation-centers/${center.id}/full-days?maxDonationsPerDay=${center.maxDonationsPerDay}` + 
           `&dateLimit=${convertToDate(dayjs(currDate).add(months_available, 'month'))}`)
@@ -67,6 +74,11 @@ const AppointmentCreate = () => {
     console.log(date);
   };
 
+  //handle select change reminder option event
+  const handleSelectChange = event => {
+    setReminderType(event.target.value);
+  };
+
   //handle form submit
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -77,7 +89,8 @@ const AppointmentCreate = () => {
       body: JSON.stringify(
         { donorId: user.id,
           date: convertToDate(date),
-          donationCenter: center
+          donationCenter: center,
+          reminderType: reminderType
         })
     };
 
@@ -118,6 +131,15 @@ const AppointmentCreate = () => {
               />
            </DemoContainer>
           </LocalizationProvider> 
+        </div>
+
+        <div className="input-container">
+            <label>Notify me by</label>
+            <select id ='select' onChange={handleSelectChange} >             
+                {options.map(item => {
+                  return (<option key={item.id} value={item.id}> {item.name}</option>);
+                })}
+            </select>
         </div>
 
         {errorMessage && <div className="error"> {errorMessage} </div>}
