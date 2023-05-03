@@ -25,4 +25,6 @@ public interface AppointmentService {
     void confirm(long id);
 
     List<LocalDate> getInvalidDates(Long donationCenterId, Integer maxDonationsPerDay, LocalDate dateLimit);
+
+    List<Appointment> findByDate(LocalDate date);
 }

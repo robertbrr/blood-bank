@@ -102,4 +102,9 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
        return datesFull;
     }
+
+    @Override
+    public List<Appointment> findByDate(LocalDate date) {
+        return this.appointmentRepository.findByDate(date);
+    }
 }

@@ -21,4 +21,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
 
     void deleteByDonor_Id(UUID id);
 
+    List<Appointment> findByDate(LocalDate date);
+
 }
