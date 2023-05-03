@@ -29,10 +29,10 @@ public class ScheduledReminder {
     }
 
     //every 24 hours
-    //delay used only for debugging, so the task doesnt trigger
+    //delay used only for debugging, so the task doesn't trigger
     //while adding new functionality to the app
     @Scheduled(fixedRate = 86400000, initialDelay = 500000)
-    public void sendEmail() {
+    public void sendReminder() {
         //get the appointments for the day after
         List<Appointment> appointmentList = appointmentService.findByDate(LocalDate.now().plusDays(1));
         for (Appointment appointment : appointmentList) {
