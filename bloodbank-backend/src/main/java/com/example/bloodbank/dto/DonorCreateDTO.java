@@ -8,6 +8,7 @@ public class DonorCreateDTO {
     private String firstName;
     private String lastName;
     private String email;
+    private String phoneNumber;
 
     public String getConfirmPassword() {
         return confirmPassword;
@@ -55,5 +56,13 @@ public class DonorCreateDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

@@ -37,7 +37,7 @@ const AppointmentCreate = () => {
           return res.json();
         })
         .then(res =>{
-          console.log(res)
+          console.log(res) 
           setFullDays(res)
         })
         .catch(e => {

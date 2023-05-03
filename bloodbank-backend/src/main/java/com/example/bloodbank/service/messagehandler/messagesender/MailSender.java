@@ -18,7 +18,6 @@ public class MailSender implements MessageSender{
         this.mailSender = mailSender;
     }
 
-
     @Override
     public void send(Message message) {
         try {

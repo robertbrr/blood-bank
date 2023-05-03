@@ -11,6 +11,7 @@ public class DonorUpdateDTO {
     private String firstName;
     private String lastName;
     private String email;
+    private String phoneNumber;
 
     public UUID getId() {
         return id;
@@ -66,5 +67,13 @@ public class DonorUpdateDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

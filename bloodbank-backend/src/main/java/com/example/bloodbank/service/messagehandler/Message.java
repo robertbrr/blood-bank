@@ -62,10 +62,12 @@ public class Message implements Cloneable{
         text = text.replaceFirst("&", appointment.getDate().toString());
 
         //set recipient
-        this.recipient = appointment.getDonor().getEmail();
+        if(appointment.getReminderType().equals("SMS")){
+            this.recipient = appointment.getDonor().getPhoneNumber();
+        }else if(appointment.getReminderType().equals("Email")){
+            this.recipient = appointment.getDonor().getEmail();
+        }
     }
-
-
 
     public Message clone(){
         Message clone = null;
