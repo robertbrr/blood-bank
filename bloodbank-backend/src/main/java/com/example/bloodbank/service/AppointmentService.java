@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface AppointmentService {
 
-    void saveAppointment(AppointmentCreateDTO dto);
+    Appointment saveAppointment(AppointmentCreateDTO dto);
 
     void deleteById(Long id,LocalDate date);
 

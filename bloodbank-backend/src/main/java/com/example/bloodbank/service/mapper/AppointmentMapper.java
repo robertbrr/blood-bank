@@ -16,6 +16,7 @@ public class AppointmentMapper {
         donor.setId(dto.getDonorId());
         appointment.setDonor(donor);
         appointment.setDonationCenter(dto.getDonationCenter());
+        appointment.setReminderType(dto.getReminderType());
         return appointment;
     }
 }

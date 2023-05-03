@@ -4,6 +4,11 @@ import com.example.bloodbank.dto.AppointmentCreateDTO;
 import com.example.bloodbank.entity.Appointment;
 import com.example.bloodbank.service.AppointmentService;
 
+import com.example.bloodbank.service.DonorService;
+import com.example.bloodbank.service.messagehandler.Message;
+import com.example.bloodbank.service.messagehandler.messagefactory.MessageSenderFactory;
+import com.example.bloodbank.service.messagehandler.messagesender.MessageSender;
+import com.example.bloodbank.types.MessageType;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +24,15 @@ import java.util.UUID;
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
+    private final DonorService donorService;
+    private final MessageSenderFactory messageSenderFactory;
+    private final Message confirmMessage;
 
-    public AppointmentController(AppointmentService appointmentService) {
+    public AppointmentController(AppointmentService appointmentService, DonorService donorService, MessageSenderFactory messageSenderFactory) {
         this.appointmentService = appointmentService;
+        this.donorService = donorService;
+        this.messageSenderFactory = messageSenderFactory;
+        this.confirmMessage = new Message(MessageType.CONFIRMATION);
     }
 
     //not sure if these mapping namings are adequate (lmk if I should rename these)
@@ -30,7 +41,19 @@ public class AppointmentController {
     @PostMapping("appointments")
     ResponseEntity<String> saveAppointment(@RequestBody AppointmentCreateDTO dto){
         try{
-            this.appointmentService.saveAppointment(dto);
+            //save appointment and return
+            Appointment appointment = this.appointmentService.saveAppointment(dto);
+            appointment.setDonor(this.donorService.findByID(dto.getDonorId()));
+
+            //create message
+            Message message = this.confirmMessage.clone();
+            message.putInfo(appointment);
+
+            //send message
+            //this actually works I promise (I tested it)
+            MessageSender messageSender = messageSenderFactory.create(appointment.getReminderType());
+            messageSender.send(message);
+
             return ResponseEntity.ok().body("Success!");
         }catch(InvalidParameterException e){
             return ResponseEntity.badRequest().body(e.getMessage());

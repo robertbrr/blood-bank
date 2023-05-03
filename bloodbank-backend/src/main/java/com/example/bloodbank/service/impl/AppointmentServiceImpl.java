@@ -34,7 +34,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public void saveAppointment(AppointmentCreateDTO dto){
+    public Appointment saveAppointment(AppointmentCreateDTO dto){
        if(dto.getDate().isBefore(LocalDate.now())){
            throw new InvalidParameterException("Can't schedule in the past!");
        }
@@ -46,7 +46,8 @@ public class AppointmentServiceImpl implements AppointmentService {
                .countByDonationCenter_IdAndDate(dto.getDonationCenter().getId(),dto.getDate());
        if(appointmentsOnDate>=dto.getDonationCenter().getMaxDonationsPerDay())
            throw new InvalidParameterException("The selected day is full!");
-       this.appointmentRepository.save(appointmentMapper.toAppointment(dto));
+       Appointment appointment = appointmentMapper.toAppointment(dto);
+       return this.appointmentRepository.save(appointment);
     }
 
     @Override
