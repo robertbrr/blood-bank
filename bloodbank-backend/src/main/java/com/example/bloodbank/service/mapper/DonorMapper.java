@@ -17,6 +17,7 @@ public class DonorMapper {
         donor.setEmail(dto.getEmail());
         donor.setFirstName(dto.getFirstName());
         donor.setLastName(dto.getLastName());
+        donor.setPhoneNumber(dto.getPhoneNumber());
         return donor;
     }
 
@@ -28,6 +29,7 @@ public class DonorMapper {
         donor.setEmail(dto.getEmail());
         donor.setFirstName(dto.getFirstName());
         donor.setLastName(dto.getLastName());
+        donor.setPhoneNumber(dto.getPhoneNumber());
         return donor;
     }
 

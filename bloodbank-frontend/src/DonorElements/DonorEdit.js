@@ -15,6 +15,7 @@ const DonorEdit = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [phoneNumber,setPhoneNumber] = useState('');
   const [errorMessage, setErrorMessage] = useState(''); 
   
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const DonorEdit = () => {
           setFirstName(res.firstName);
           setLastName(res.lastName);
           setEmail(res.email);
+          setPhoneNumber(res.phoneNumber);
       }).catch((err) => {
           console.log(err.message);
       });
@@ -74,6 +76,7 @@ const DonorEdit = () => {
           firstName: firstName,
           lastName: lastName,
           email: email,
+          phoneNumber: phoneNumber
         })
     };
 
@@ -159,6 +162,16 @@ const DonorEdit = () => {
             value={email} 
             required  
             onChange={(event) => setEmail(event.target.value)} />
+        </div>
+
+        <div className="input-container">
+          <label>Phone number </label>
+          <input 
+            type="text" 
+            name="phoneNumber"
+            value={phoneNumber} 
+            required  
+            onChange={(event) => setPhoneNumber(event.target.value)} />
         </div>
 
         {errorMessage && <div className="error"> {errorMessage} </div>}

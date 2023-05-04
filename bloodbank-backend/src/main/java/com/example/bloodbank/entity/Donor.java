@@ -9,6 +9,7 @@ public class Donor extends User{
     private String firstName;
     private String lastName;
     private String email;
+    private String phoneNumber;
 
     public String getEmail() {
         return email;
@@ -32,5 +33,13 @@ public class Donor extends User{
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

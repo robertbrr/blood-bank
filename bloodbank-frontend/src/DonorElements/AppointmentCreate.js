@@ -37,7 +37,7 @@ const AppointmentCreate = () => {
           return res.json();
         })
         .then(res =>{
-          console.log(res)
+          console.log(res) 
           setFullDays(res)
         })
         .catch(e => {
@@ -137,7 +137,7 @@ const AppointmentCreate = () => {
             <label>Notify me by</label>
             <select id ='select' onChange={handleSelectChange} >             
                 {options.map(item => {
-                  return (<option key={item.id} value={item.id}> {item.name}</option>);
+                  return (<option key={item.id} value={item.name}> {item.name}</option>);
                 })}
             </select>
         </div>

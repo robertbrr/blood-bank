@@ -9,6 +9,7 @@ const Signup = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [phoneNumber,setPhoneNumber] = useState('');
   const [errorMessage, setErrorMessage] = useState(''); 
   const navigate = useNavigate();
 
@@ -24,7 +25,8 @@ const Signup = () => {
           confirmPassword: confirmPassword,
           firstName: firstName,
           lastName: lastName,
-          email: email
+          email: email,
+          phoneNumber: phoneNumber
         })
     };
 
@@ -98,6 +100,15 @@ const Signup = () => {
             name="email" 
             required  
             onChange={(event) => setEmail(event.target.value)} />
+        </div>
+        <div className="input-container">
+          <label>Phone number </label>
+          <input 
+            type="text" 
+            name="phoneNumber"
+            value={phoneNumber} 
+            required  
+            onChange={(event) => setPhoneNumber(event.target.value)} />
         </div>
         {errorMessage && <div className="error"> {errorMessage} </div>}
         <div className="button-container">
