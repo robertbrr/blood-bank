@@ -2,6 +2,7 @@ package com.example.bloodbank.service.messagehandler.messagefactory;
 
 import com.example.bloodbank.service.messagehandler.messagesender.MailSender;
 import com.example.bloodbank.service.messagehandler.messagesender.MessageSender;
+import com.example.bloodbank.service.messagehandler.messagesender.SMSSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,10 @@ public class MessageSenderFactory {
     }
 
     public MessageSender create(String type){
-        return new MailSender(javaMailSender);
+        if(type.equals("Email")) {
+            return new MailSender(javaMailSender);
+        }else{
+            return new SMSSender();
+        }
     }
 }
