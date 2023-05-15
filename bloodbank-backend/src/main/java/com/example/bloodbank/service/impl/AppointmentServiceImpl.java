@@ -107,4 +107,9 @@ public class AppointmentServiceImpl implements AppointmentService {
     public List<Appointment> findByDate(LocalDate date) {
         return this.appointmentRepository.findByDate(date);
     }
+
+    @Override
+    public List<Appointment> findByDonor_IdAndDateAfter(UUID id, LocalDate date) {
+        return this.appointmentRepository.findByDonor_IdAndDateAfter(id,date);
+    }
 }

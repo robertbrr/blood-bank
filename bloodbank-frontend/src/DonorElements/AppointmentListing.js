@@ -3,7 +3,7 @@ import UserContext from '../user-context';
 import { useContext } from 'react';
 
 const AppointmentListing = () => {
-    const [appointmentsData, appointmentsDataChange] = useState(null);
+    const [appointmentsData, appointmentsDataChange] = useState([]);
     const [user, setUser] = useContext(UserContext);
 
     //from date to LocalDate
@@ -50,7 +50,7 @@ const AppointmentListing = () => {
 
     //fetch appts
     function fetchAppointments(){
-        fetch("http://localhost:8080/v1/donors/" + user.id + "/appointments")
+        fetch(`http://localhost:8080/v1/donors/${user.id}/appointments?canScheduleCheck=false`)
             .then((res) => {
                 return res.json();
             })

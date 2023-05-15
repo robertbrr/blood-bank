@@ -27,6 +27,7 @@ public class AppointmentController {
     private final DonorService donorService;
     private final MessageSenderFactory messageSenderFactory;
     private final Message confirmMessage;
+    private static final Long DURATION_BETWEEN_APPOINTMENTS = 6L;
 
     public AppointmentController(AppointmentService appointmentService, DonorService donorService, MessageSenderFactory messageSenderFactory) {
         this.appointmentService = appointmentService;
@@ -51,8 +52,8 @@ public class AppointmentController {
 
             //send message
             //this actually works I promise (I tested it)
-            MessageSender messageSender = messageSenderFactory.create(appointment.getReminderType());
-            messageSender.send(message);
+            //MessageSender messageSender = messageSenderFactory.create(appointment.getReminderType());
+            //messageSender.send(message);
 
             return ResponseEntity.ok().body("Success!");
         }catch(InvalidParameterException e){
@@ -63,8 +64,12 @@ public class AppointmentController {
     //other one is mapped to donors/id/appointments because
     //we get them based on the donor id
     @GetMapping("donors/{id}/appointments")
-    ResponseEntity<List<Appointment>> getAppointmentsByDonorId(@PathVariable("id") UUID id){
-        return ResponseEntity.ok(appointmentService.findByDonorId(id));
+    ResponseEntity<List<Appointment>> getAppointmentsByDonorId(@PathVariable("id") UUID id,
+                                                               @RequestParam("canScheduleCheck") Boolean canScheduleCheck){
+        if(canScheduleCheck == null || !canScheduleCheck) {
+            return ResponseEntity.ok(appointmentService.findByDonorId(id));
+        }else
+            return ResponseEntity.ok(appointmentService.findByDonor_IdAndDateAfter(id,LocalDate.now().minusMonths(DURATION_BETWEEN_APPOINTMENTS)));
     }
 
     @DeleteMapping("donors/{id}/appointments")

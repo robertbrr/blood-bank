@@ -23,4 +23,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
 
     List<Appointment> findByDate(LocalDate date);
 
+    List<Appointment> findByDonor_IdAndDateAfter(UUID id, LocalDate date);
+
+
 }

@@ -27,4 +27,6 @@ public interface AppointmentService {
     List<LocalDate> getInvalidDates(Long donationCenterId, Integer maxDonationsPerDay, LocalDate dateLimit);
 
     List<Appointment> findByDate(LocalDate date);
+
+    List<Appointment> findByDonor_IdAndDateAfter(UUID id, LocalDate date);
 }

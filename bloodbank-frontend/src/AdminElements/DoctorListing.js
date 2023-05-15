@@ -84,4 +84,3 @@ const DoctorListing = () => {
 
 export default DoctorListing;
 
-
