@@ -1,5 +1,7 @@
 package com.example.bloodbank.dto;
 
+import com.example.bloodbank.types.BloodType;
+
 public class DonorCreateDTO {
 
     private String username;
@@ -9,6 +11,7 @@ public class DonorCreateDTO {
     private String lastName;
     private String email;
     private String phoneNumber;
+    private BloodType bloodType;
 
     public String getConfirmPassword() {
         return confirmPassword;
@@ -64,5 +67,13 @@ public class DonorCreateDTO {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public BloodType getBloodType() {
+        return bloodType;
+    }
+
+    public void setBloodType(BloodType bloodType) {
+        this.bloodType = bloodType;
     }
 }

@@ -1,24 +1,11 @@
 import { useEffect, useState } from "react";
 import UserContext from '../user-context';
 import { useContext } from 'react';
+import { convertToDate } from "../utils";
 
 const AppointmentListing = () => {
     const [appointmentsData, appointmentsDataChange] = useState([]);
     const [user, setUser] = useContext(UserContext);
-
-    //from date to LocalDate
-    const convertToDate = (date) => {
-        const selDate = new Date(date)
-        const year = selDate.getFullYear();
-        const month = selDate.getMonth() + 1; //0 index in JS
-        const day = selDate.getDate();
-        //this certainly does things
-        const localDate = `${year}-${month < 10 ? "0" + month : month}-${
-          day < 10 ? "0" + day : day
-        }`;
-        console.log(localDate);
-        return localDate;
-      };
 
     //cancel appointment handler
     const CancelAppointment = ({id:id, date:date}) => {
@@ -63,7 +50,7 @@ const AppointmentListing = () => {
             })
     }
 
-    useEffect(() => {fetchAppointments()},[]);
+    useEffect(() => {fetchAppointments();console.log(user)},[]);
 
     return (
                 <div className="table-container">

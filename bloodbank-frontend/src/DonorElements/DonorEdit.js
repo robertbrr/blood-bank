@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import UserContext from '../user-context';
 import { useContext } from 'react';
 import '../styles.css';
+import { bloodTypes } from '../utils';
 
 const DonorEdit = () => {
 
@@ -16,6 +17,7 @@ const DonorEdit = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber,setPhoneNumber] = useState('');
+  const [bloodType, setBloodType] = useState('');
   const [errorMessage, setErrorMessage] = useState(''); 
   
   const navigate = useNavigate();
@@ -33,6 +35,7 @@ const DonorEdit = () => {
           setLastName(res.lastName);
           setEmail(res.email);
           setPhoneNumber(res.phoneNumber);
+          setBloodType(res.bloodType);
       }).catch((err) => {
           console.log(err.message);
       });
@@ -61,6 +64,12 @@ const DonorEdit = () => {
         }
     }
 
+
+  //handle select bloodType select
+  const handleBloodTypeChange = event => {
+    setBloodType(event.target.value);
+  }
+
   //handle form submit
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -76,7 +85,8 @@ const DonorEdit = () => {
           firstName: firstName,
           lastName: lastName,
           email: email,
-          phoneNumber: phoneNumber
+          phoneNumber: phoneNumber,
+          bloodType: bloodType
         })
     };
 
@@ -172,6 +182,15 @@ const DonorEdit = () => {
             value={phoneNumber} 
             required  
             onChange={(event) => setPhoneNumber(event.target.value)} />
+        </div>
+
+        <div className="input-container">
+            <label>Blood Type</label>
+            <select id ='select' onChange={handleBloodTypeChange} value = {bloodType}>             
+                {bloodTypes.map(item => {
+                  return (<option key={item.id} value={item.value}> {item.name}</option>);
+                })}
+            </select>
         </div>
 
         {errorMessage && <div className="error"> {errorMessage} </div>}

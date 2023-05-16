@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import '../styles.css'
+import { viewAppointmentsOptions } from "../utils";
 
 const AppointmentListingDoctor = () => {
     const [appointmentsData, appointmentsDataChange] = useState([]);
@@ -24,11 +25,6 @@ const AppointmentListingDoctor = () => {
             fetchTodayAppointments()
         }
       };
-
-    const options = [
-        {id: 1, name: "All appointments"},
-        {id: 2, name: "Today's appointments"}
-    ]
 
     //confirm appt handler    
     const ConfirmAppointment = (id) =>{
@@ -101,7 +97,7 @@ const AppointmentListingDoctor = () => {
                 <div className="table-container">
                     <div className="input-container">
                         <select id ='select' onChange={handleSelectChange}>             
-                            {options.map(item => {
+                            {viewAppointmentsOptions.map(item => {
                             return (<option key={item.id} value={item.id}> {item.name}</option>);
                             })}
                         </select>   

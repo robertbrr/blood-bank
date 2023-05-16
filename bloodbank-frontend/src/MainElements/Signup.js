@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import '../styles.css';
+import { bloodTypes } from '../utils';
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -10,6 +11,7 @@ const Signup = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber,setPhoneNumber] = useState('');
+  const [bloodType, setBloodType] = useState('');
   const [errorMessage, setErrorMessage] = useState(''); 
   const navigate = useNavigate();
 
@@ -26,7 +28,8 @@ const Signup = () => {
           firstName: firstName,
           lastName: lastName,
           email: email,
-          phoneNumber: phoneNumber
+          phoneNumber: phoneNumber,
+          bloodType: bloodType
         })
     };
 
@@ -47,6 +50,11 @@ const Signup = () => {
       .catch(e => {
         setErrorMessage(e.message);
       });
+  }
+
+  //handle select bloodType select
+  const handleBloodTypeChange = event => {
+    setBloodType(event.target.value);
   }
 
   //form JSX
@@ -110,6 +118,16 @@ const Signup = () => {
             required  
             onChange={(event) => setPhoneNumber(event.target.value)} />
         </div>
+
+        <div className="input-container">
+            <label>Blood Type</label>
+            <select id ='select' onChange={handleBloodTypeChange} >             
+                {bloodTypes.map(item => {
+                  return (<option key={item.id} value={item.value}> {item.name}</option>);
+                })}
+            </select>
+        </div>
+
         {errorMessage && <div className="error"> {errorMessage} </div>}
         <div className="button-container">
           <input type="submit" value = "Sign Up"/>

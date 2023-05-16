@@ -1,5 +1,6 @@
 package com.example.bloodbank.entity;
 
+import com.example.bloodbank.types.BloodType;
 import jakarta.persistence.*;
 
 
@@ -10,6 +11,7 @@ public class Donor extends User{
     private String lastName;
     private String email;
     private String phoneNumber;
+    private BloodType bloodType;
 
     public String getEmail() {
         return email;
@@ -41,5 +43,13 @@ public class Donor extends User{
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public BloodType getBloodType() {
+        return bloodType;
+    }
+
+    public void setBloodType(BloodType bloodType) {
+        this.bloodType = bloodType;
     }
 }
