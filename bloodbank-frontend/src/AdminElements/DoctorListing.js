@@ -44,17 +44,18 @@ const DoctorListing = () => {
 
     //table JSX
     return (
+        <div className="app2">
                 <div className="table-container">
                     <table>
                         <thead>
                             <tr>
-                                <th>Username</th>
-                                <th>Password</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Email</th>
-                                <th>CNP</th>
-                                <th>Center</th>
+                                <th class = "left-align">Username</th>
+                                <th class = "left-align">Password</th>
+                                <th class = "left-align">First Name</th>
+                                <th class = "left-align">Last Name</th>
+                                <th class = "left-align">Email</th>
+                                <th class = "left-align">CNP</th>
+                                <th class = "left-align">Center</th>
                                 <th>Options</th>
                             </tr>
                         </thead>
@@ -77,8 +78,9 @@ const DoctorListing = () => {
                             }
                         </tbody>
                     </table>
-                    <button type = "edit" onClick={()=>navigate("create")}>Add Doctor</button>
+                    <button type = "edit" onClick={()=>navigate("create")}>+</button>
                 </div>
+        </div>
     );
 }
 

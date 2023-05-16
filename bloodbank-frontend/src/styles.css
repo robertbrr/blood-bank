@@ -9,6 +9,18 @@
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
     background-color: #f8f9fd;
   }
+
+  .app2{
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 20px;
+    height: 100vh;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    background-color: #f8f9fd;
+  }
   
   input[type="text"],
   input[type="password"] {
@@ -25,6 +37,7 @@
     border: 1px solid #0000ff;
     color: #fff;
     padding: 10px 20px;
+    border-radius: 6%;
   }
 
   button[type="delete-account"] {
@@ -32,6 +45,7 @@
     cursor: pointer;
     font-size: 15px;
     padding: 10px 20px;
+    border-radius: 6%;
   }
   
   input[type="submit"]:hover {
@@ -46,6 +60,7 @@
     border: 0px solid #000000; 
     color: #000000;
     padding: 5px 5px;
+    border-radius: 6%;
   }
 
   input[type="date"] {
@@ -111,7 +126,19 @@
   .list-container {
     display: flex;
   }
+
+  .left-align {
+    text-align: left;
+  }
   
+  .right-align {
+    text-align: right;
+  }
+  
+  .center-align {
+    text-align: center;
+  }
+
   .error {
     color: red;
     font-size: 14px;
@@ -141,6 +168,7 @@
     border: 1px solid #0000ff;
     color: #fff;
     padding: 5px 20px;
+    border-radius: 6%;
   }
   
   button[type="edit"]:hover {
@@ -156,6 +184,7 @@
     border: 1px solid #ce0300;
     color: #fff;
     padding: 5px 20px;
+    border-radius: 6%;
   }
   
   button[type="delete"]:hover {
@@ -169,10 +198,15 @@
     padding: 2rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-left: 20px;
-  
+    margin-right: 20px;
+    /* width: 100%; */
   }
   .table-container {
     margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* width: 100%; */
   }
   th, td {
     padding: 8px;

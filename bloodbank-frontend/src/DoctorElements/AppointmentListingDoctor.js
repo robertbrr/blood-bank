@@ -9,7 +9,7 @@ const AppointmentListingDoctor = () => {
     const [appointmentsData, appointmentsDataChange] = useState([]);
     const {state:center} = useLocation();
     const [pageNo,setPageNo] = useState(1);
-    const pageSize = 10;
+    const pageSize = 8;
     const [pageCount,setPageCount] = useState(0);
     const [showPages,setShowPages] = useState(true);
     const [currOpt,setCurrOpt] = useState(1);
@@ -62,6 +62,7 @@ const AppointmentListingDoctor = () => {
             .then((resp) => {
                 console.log(resp);
                 appointmentsDataChange(resp.content);
+
                 setPageCount(resp.totalPages);
             })
             .catch((err) => {
@@ -93,44 +94,48 @@ const AppointmentListingDoctor = () => {
       };
 
     return (
-                <div className="table-container">
-                    <div className="input-container">
-                        <select id ='select' onChange={handleSelectChange}>             
-                            {viewAppointmentsOptions.map(item => {
-                            return (<option key={item.id} value={item.id}> {item.name}</option>);
-                            })}
-                        </select>   
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Donation Center</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                                <th>Donor</th>
-                                <th>Options</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {appointmentsData &&
-                                appointmentsData.map(item => (
-                                    <tr key={item.id}>
-                                        <td>{item.donationCenter.name+', '+item.donationCenter.address+', '+item.donationCenter.area}</td>
-                                        <td>{item.date}</td>
-                                        <td>{item.status}</td>
-                                        <td>{item.donor.firstName +' ' + item.donor.lastName}</td>
-                                        <td>{item.status === "PENDING" && <button onClick={() => { ConfirmAppointment(item.id) }} type="edit">Confirm</button> ||
-                                        item.status === "CONFIRMED" && <button onClick={() => { ConfirmAppointment(item.id) }} type="edit">View Results</button>}</td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
-                    </table>
-                    {showPages &&
-                    <Stack spacing={2}>
-                        <Pagination count={pageCount} page={pageNo} onChange={handlePageChange} />
-                    </Stack>}
-                </div>
+        <div className="app2">
+            
+            <h8></h8>
+
+            <select id ='select' onChange={handleSelectChange} class = "styled-select">             
+                {viewAppointmentsOptions.map(item => {
+                return (<option key={item.id} value={item.id}> {item.name}</option>);
+                })}
+            </select> 
+
+            <div className="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class = "left-align">Donation Center</th>
+                            <th class = "left-align">Date</th>
+                            <th class = "left-align">Status</th>
+                            <th class = "left-align">Donor</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {appointmentsData &&
+                            appointmentsData.map(item => (
+                                <tr key={item.id}>
+                                    <td>{item.donationCenter.name+', '+item.donationCenter.address+', '+item.donationCenter.area}</td>
+                                    <td>{item.date}</td>
+                                    <td>{item.status}</td>
+                                    <td>{item.donor.firstName +' ' + item.donor.lastName}</td>
+                                    <td class = "center-align">{item.status === "PENDING" && <button onClick={() => { ConfirmAppointment(item.id) }} type="edit">Confirm</button> ||
+                                    item.status === "CONFIRMED" && <button onClick={() => { ConfirmAppointment(item.id) }} type="edit">View Results</button>}</td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
+            {showPages &&
+                <Stack spacing={2}>
+                    <Pagination count={pageCount} page={pageNo} onChange={handlePageChange} />
+                </Stack>}
+        </div>
     );
 }
 

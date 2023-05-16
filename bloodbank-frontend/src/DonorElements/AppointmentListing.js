@@ -53,13 +53,14 @@ const AppointmentListing = () => {
     useEffect(() => {fetchAppointments();console.log(user)},[]);
 
     return (
+        <div className="app2">
                 <div className="table-container">
                     <table>
                         <thead>
                             <tr>
-                                <th>Donation Center</th>
-                                <th>Date</th>
-                                <th>Status</th>
+                                <th class = "left-align">Donation Center</th>
+                                <th class = "left-align">Date</th>
+                                <th class = "left-align">Status</th>
                                 <th>Options</th>
                             </tr>
                         </thead>
@@ -78,6 +79,7 @@ const AppointmentListing = () => {
                         </tbody>
                     </table>
                 </div>
+        </div>
     );
 }
 
