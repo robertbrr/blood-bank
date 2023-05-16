@@ -10,7 +10,7 @@ export const bloodTypes = [
 ];
 
 export const notificationOptions = [
-    {id: 1, name: "Email"},
+    {id: 1, name: "EMAIL"},
     {id: 2, name: "SMS"}
 ];
 
