@@ -9,9 +9,13 @@ public class BloodReport {
     @SequenceGenerator(name = "idgenerator", initialValue = 1000)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "appointment_id")
     private Appointment appointment;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
 
     private Double glucose;
     private Double sodium;
@@ -29,6 +33,14 @@ public class BloodReport {
     private Double rbc;
     private Double hgb;
     private Double hct;
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
 
     public Appointment getAppointment() {
         return appointment;
@@ -173,4 +185,5 @@ public class BloodReport {
     public void setHct(Double hct) {
         this.hct = hct;
     }
+
 }

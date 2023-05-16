@@ -20,6 +20,7 @@ import AppointmentListing from "./DonorElements/AppointmentListing"
 import DoctorNavbar from "./DoctorElements/DoctorNavbar";
 import DoctorPage from "./DoctorElements/DoctorPage";
 import AppointmentListingDoctor from "./DoctorElements/AppointmentListingDoctor";
+import BloodReportFiller from "./DoctorElements/BloodReportFiller";
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
         
           <Route path='/doctor/home' element={<> <DoctorNavbar/> <DoctorPage/> </>}/>
           <Route path='/doctor/appointments' element={<> <DoctorNavbar/> <AppointmentListingDoctor/> </>}/>
+          <Route path='/doctor/appointments/:id/confirm' element={<> <DoctorNavbar/> <BloodReportFiller/> </>}/>
 
         </Routes>
       </BrowserRouter>

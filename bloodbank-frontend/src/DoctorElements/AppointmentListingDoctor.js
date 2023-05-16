@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import '../styles.css'
@@ -13,6 +13,7 @@ const AppointmentListingDoctor = () => {
     const [pageCount,setPageCount] = useState(0);
     const [showPages,setShowPages] = useState(true);
     const [currOpt,setCurrOpt] = useState(1);
+    const navigate = useNavigate();
 
     const handleSelectChange = event => {
         console.log(event.target.value);
@@ -28,29 +29,7 @@ const AppointmentListingDoctor = () => {
 
     //confirm appt handler    
     const ConfirmAppointment = (id) =>{
-        if (window.confirm('Are you sure you want to confirm the selected appointment?')) {
-            fetch(`http://localhost:8080/v1/appointments/${id}/confirm`, {
-                method: "PUT",
-            })
-            .then(async res => {
-                console.log(res);
-                if(!res.ok){
-                  const text = await res.text();
-                  throw new Error(text);
-                }
-                return res.text();
-            })
-            .then((res) => {
-                alert(res);
-                if(currOpt == 1){
-                    fetchAllAppointments(pageNo,pageSize);
-                }else
-                    fetchTodayAppointments();
-            }).catch((err) => {
-                console.log(err.message);
-                alert(err.message);
-            })
-        }
+        navigate(`/doctor/appointments/${id}/confirm`);
     }
 
     //fetch all appts
@@ -70,7 +49,7 @@ const AppointmentListingDoctor = () => {
             })
     }
 
-    //fetch all appts
+    //fetch all appts today
     function fetchTodayAppointments(){
         fetch(`http://localhost:8080/v1/donation-centers/${center.id}/appointments-today`)
             .then((res) => {
