@@ -50,6 +50,11 @@ const CenterListing = () => {
         else return k;
     }
 
+    function scheduleParser(startHour, endHour){
+        return hourParser(startHour) + ':'+ minuteParser(startHour) + ' - ' +
+               hourParser(endHour) + ':'+ minuteParser(endHour);
+    }
+
     //fetch centers
     function fetchCenters(){
         fetch("http://localhost:8080/v1/donation-centers")
@@ -86,10 +91,7 @@ const CenterListing = () => {
                                         <td>{item.name}</td>
                                         <td>{item.address}</td>
                                         <td>{item.area}</td>
-                                        <td>{
-                                            hourParser(item.startHour) + ':'+ minuteParser(item.startHour)+' - '+
-                                            hourParser(item.endHour) + ':'+ minuteParser(item.endHour)
-                                        }</td>
+                                        <td>{scheduleParser(item.startHour, item.endHour)}</td>
                                         <td><button onClick={() => { ScheduleAppointment(item) }} type="edit">Schedule</button>
                                         </td>
                                     </tr>
