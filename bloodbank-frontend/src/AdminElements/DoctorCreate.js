@@ -85,11 +85,9 @@ const DoctorCreate = () => {
     });
   }
 
-  //form jsx
-  const renderForm = (
-    <div className="form">
+  //render first form column
+  const renderFormFirstColumn = (
       <form onSubmit={handleSubmit}>
-
         <div className="input-container">
           <label>Username </label>
           <input 
@@ -100,7 +98,7 @@ const DoctorCreate = () => {
         </div>
 
         <div className="input-container">
-          <label>Password </label>
+          <label>Password</label>
           <input 
             type="text" 
             name="pass" 
@@ -109,7 +107,7 @@ const DoctorCreate = () => {
         </div>
 
         <div className="input-container">
-          <label>First name </label>
+          <label>First name</label>
           <input 
             type="text" 
             name="fname"     
@@ -118,55 +116,61 @@ const DoctorCreate = () => {
         </div>
 
         <div className="input-container">
-          <label>Last name </label>
+          <label>Last name</label>
           <input 
             type="text" 
             name="lname" 
             required  
             onChange={(event) => setLastName(event.target.value)} />
         </div>
-
-        <div className="input-container">
-          <label>Email Address </label>
-          <input 
-            type="text" 
-            name="email"
-            required  
-            onChange={(event) => setEmail(event.target.value)} />
-        </div>
-
-        <div className="input-container">
-          <label>CNP</label>
-          <input 
-            type="text" 
-            name="email" 
-            required  
-            onChange={(event) => setCnp(event.target.value)} />
-        </div>
-
-        <div className="input-container">
-            <label>Donation Center</label>
-            <select onChange={handleSelectChange}>
-                {centers.map(item => 
-                    {return (<option key={item.id} value={item.id}> {item.name +', ' + item.address}</option>);
-                })}
-            </select>   
-        </div>
-
-        {errorMessage && <div className="error"> {errorMessage} </div>}
-
-        <div className="button-container">
-          <input type="submit" value = "Confirm"/>
-        </div>
       </form>
-    </div>
-  );
+  )
+
+  const renderFormSecondColumn = (
+    <form onSubmit={handleSubmit}>
+      <div className="input-container">
+        <label>Email Address </label>
+        <input 
+          type="text" 
+          name="email"
+          required  
+          onChange={(event) => setEmail(event.target.value)} />
+      </div>
+
+      <div className="input-container">
+        <label>CNP</label>
+        <input 
+          type="text" 
+          name="email" 
+          required  
+          onChange={(event) => setCnp(event.target.value)} />
+      </div>
+
+      <div className="input-container">
+          <label>Donation Center</label>
+          <select onChange={handleSelectChange} class = "styled-select">
+              {centers.map(item => 
+                  {return (<option key={item.id} value={item.id}> {item.name +', ' + item.address}</option>);
+              })}
+          </select>   
+      </div>
+    </form>
+  )
 
   return (
     <div className="app">
       <h1 className="title">Enter the information:</h1>
-        <div className="login-form">
-          {renderForm}
+        <div className="split-form-container">
+          <div className="split-form">
+            {renderFormFirstColumn}
+            {renderFormSecondColumn}
+          </div>
+          <form onSubmit={handleSubmit}>
+            {errorMessage && <div className="error"> {errorMessage} </div>}
+            <div className="button-container">
+              <input type="submit" value = "Confirm"/>
+            </div>
+          </form>
         </div>
     </div>
   );

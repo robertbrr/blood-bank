@@ -11,7 +11,7 @@ const Signup = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber,setPhoneNumber] = useState('');
-  const [bloodType, setBloodType] = useState('');
+  const [bloodType, setBloodType] = useState(bloodTypes[0].value);
   const [errorMessage, setErrorMessage] = useState(''); 
   const navigate = useNavigate();
 
@@ -57,59 +57,69 @@ const Signup = () => {
     setBloodType(event.target.value);
   }
 
-  //form JSX
-  const renderForm = (
-    <div className="form">
-      <form onSubmit={handleSubmit}>
-        <div className="input-container">
-          <label>Username </label>
-          <input 
-            type="text" 
-            name="uname" 
-            required 
-            onChange={(event) => setUsername(event.target.value)}/>
-        </div>
-        <div className="input-container">
-          <label>Password </label>
-          <input 
-            type="password" 
-            name="pass" 
-            required  
-            onChange={(event) => setPassword(event.target.value)} />
-        </div>
-        <div className="input-container">
-          <label>Confirm password </label>
-          <input 
-            type="password" 
-            name="passConfirm" 
-            required  
-            onChange={(event) => setConfirmPassword(event.target.value)} />
-        </div>
-        <div className="input-container">
-          <label>First name </label>
+  //render first form column
+  const renderFormFirstColumn =(
+    <form onSubmit={handleSubmit}>
+      <div className="input-container">
+        <label>Username </label>
+        <input 
+          type="text" 
+          name="uname" 
+          required 
+          onChange={(event) => setUsername(event.target.value)}/>
+      </div>
+
+      <div className="input-container">
+        <label>Password </label>
+        <input 
+          type="password" 
+          name="pass" 
+          required  
+          onChange={(event) => setPassword(event.target.value)} />
+      </div>
+
+      <div className="input-container">
+        <label>Confirm password </label>
+        <input 
+          type="password" 
+          name="passConfirm" 
+          required  
+          onChange={(event) => setConfirmPassword(event.target.value)} />
+      </div>
+
+      <div className="input-container">
+            <label>Email Address </label>
+            <input 
+              type="text" 
+              name="email" 
+              required  
+              onChange={(event) => setEmail(event.target.value)} />
+      </div>
+    </form>
+  )
+
+  //render second form column
+  const renderFormSecondColumn =(
+    <form onSubmit={handleSubmit}>
+      <div className="input-container">
+          <label>First name</label>
           <input 
             type="text" 
             name="fname" 
             required  
             onChange={(event) => setFirstName(event.target.value)} />
-        </div>
-        <div className="input-container">
-          <label>Last name </label>
+      </div>
+
+      <div className="input-container">
+          <label>Last name</label>
           <input 
             type="text" 
             name="lname" 
             required  
             onChange={(event) => setLastName(event.target.value)} />
-        </div>
-        <div className="input-container">
-          <label>Email Address </label>
-          <input 
-            type="text" 
-            name="email" 
-            required  
-            onChange={(event) => setEmail(event.target.value)} />
-        </div>
-        <div className="input-container">
+      </div>
+
+      <div className="input-container">
           <label>Phone number </label>
           <input 
             type="text" 
@@ -121,27 +131,31 @@ const Signup = () => {
 
         <div className="input-container">
             <label>Blood Type</label>
-            <select id ='select' onChange={handleBloodTypeChange} >             
+            <select id ='select' onChange={handleBloodTypeChange} class = "styled-select" >             
                 {bloodTypes.map(item => {
                   return (<option key={item.id} value={item.value}> {item.name}</option>);
                 })}
             </select>
         </div>
+    </form>
+  )
 
+  //Form JSX
+  return (
+    <div className="app">
+      <h1 className="title">Enter your information:</h1>
+      <div className="split-form-container">
+        <div className="split-form">
+          {renderFormFirstColumn}
+          {renderFormSecondColumn}
+        </div>
+        <form onSubmit={handleSubmit}>
         {errorMessage && <div className="error"> {errorMessage} </div>}
         <div className="button-container">
           <input type="submit" value = "Sign Up"/>
         </div>
       </form>
-    </div>
-  );
-
-  return (
-    <div className="app">
-      <h1 className="title">Enter your information:</h1>
-        <div className="login-form">
-          {renderForm}
-        </div>
+      </div>
     </div>
   );
 }

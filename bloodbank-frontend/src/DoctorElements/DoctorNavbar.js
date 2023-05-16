@@ -30,9 +30,7 @@ const DoctorNavbar = () => {
             <li>
             <NavLink to={"/doctor/appointments"} state={center}>View Appointments at {center.name}</NavLink>
             </li>
-            <Link to ='/'>
-              <button type="logout" onClick={() =>setUser(null)}>Log out</button>
-            </Link>
+            <NavLink to ='/' onClick={() =>setUser(null)} >Log Out</NavLink>
           </ul>
         </div>
       </div>

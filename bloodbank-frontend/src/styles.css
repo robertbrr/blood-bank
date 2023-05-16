@@ -12,8 +12,9 @@
   
   input[type="text"],
   input[type="password"] {
-    height: 25px;
+    height: 30px;
     border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 0px 5px;
   }
   
   input[type="submit"] {
@@ -71,6 +72,34 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 
+  .split-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .split-form-container{
+    background-color: white;
+    padding: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .styled-select {
+    padding: 0px 3px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    background-color: #fff; 
+    color: #333; 
+    width: 200px; 
+    height: 32px;
+  }
+  
+  .styled-select:focus {
+    outline: none; 
+    border-color: #007bff; 
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  }
+
   .welcome-page {
     display: flex;
     align-items: center;
@@ -85,7 +114,10 @@
   
   .error {
     color: red;
-    font-size: 12px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .title {
@@ -144,7 +176,6 @@
   }
   th, td {
     padding: 8px;
-
     border-bottom: 1px solid #ddd;
   }
   
