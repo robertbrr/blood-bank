@@ -31,7 +31,6 @@ const AppointmentListingDoctor = () => {
         if (window.confirm('Are you sure you want to confirm the selected appointment?')) {
             fetch(`http://localhost:8080/v1/appointments/${id}/confirm`, {
                 method: "PUT",
-
             })
             .then(async res => {
                 console.log(res);
@@ -43,7 +42,7 @@ const AppointmentListingDoctor = () => {
             })
             .then((res) => {
                 alert(res);
-                if(currOpt === 1){
+                if(currOpt == 1){
                     fetchAllAppointments(pageNo,pageSize);
                 }else
                     fetchTodayAppointments();
@@ -120,8 +119,8 @@ const AppointmentListingDoctor = () => {
                                         <td>{item.date}</td>
                                         <td>{item.status}</td>
                                         <td>{item.donor.firstName +' ' + item.donor.lastName}</td>
-                                        <td>{item.status === "PENDING" && <button onClick={() => { ConfirmAppointment(item.id) }} type="edit">Confirm</button>}
-                                        </td>
+                                        <td>{item.status === "PENDING" && <button onClick={() => { ConfirmAppointment(item.id) }} type="edit">Confirm</button> ||
+                                        item.status === "CONFIRMED" && <button onClick={() => { ConfirmAppointment(item.id) }} type="edit">View Results</button>}</td>
                                     </tr>
                                 ))
                             }
