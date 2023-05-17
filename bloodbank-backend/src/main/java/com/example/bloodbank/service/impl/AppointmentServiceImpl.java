@@ -4,6 +4,7 @@ package com.example.bloodbank.service.impl;
 import com.example.bloodbank.dto.AppointmentCreateDTO;
 import com.example.bloodbank.entity.Appointment;
 import com.example.bloodbank.repository.AppointmentRepository;
+import com.example.bloodbank.repository.BloodReportRepository;
 import com.example.bloodbank.service.AppointmentService;
 import com.example.bloodbank.service.mapper.AppointmentMapper;
 import org.springframework.data.domain.Page;
@@ -27,10 +28,12 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
     private final AppointmentMapper appointmentMapper;
+    private final BloodReportRepository bloodReportRepository;
 
-    public AppointmentServiceImpl(AppointmentRepository appointmentRepository, AppointmentMapper appointmentMapper) {
+    public AppointmentServiceImpl(AppointmentRepository appointmentRepository, AppointmentMapper appointmentMapper, BloodReportRepository bloodReportRepository) {
         this.appointmentRepository = appointmentRepository;
         this.appointmentMapper = appointmentMapper;
+        this.bloodReportRepository = bloodReportRepository;
     }
 
     @Override
@@ -52,11 +55,10 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public void deleteById(Long id,LocalDate date){
-        //not sure if the requirements meant "delete appointments scheduled for today and tomorrow"
-        //or "for today and all future days" (I chose this one)
         if(date.isBefore(LocalDate.now())) {
             throw new InvalidParameterException("Can't delete appointments in the past!");
         }else{
+            this.bloodReportRepository.deleteByAppointment_Id(id);
             this.appointmentRepository.deleteById(id);
         }
     }
@@ -79,6 +81,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public void deleteByDonorId(UUID id){
+        this.bloodReportRepository.deleteByAppointment_Donor_Id(id);
         this.appointmentRepository.deleteByDonor_Id(id);
     }
 

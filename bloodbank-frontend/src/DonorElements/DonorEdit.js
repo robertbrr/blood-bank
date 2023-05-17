@@ -41,18 +41,11 @@ const DonorEdit = () => {
       });
   },[]);
 
-  const DeleteSelf = async () => {
+  const DeleteSelf = () => {
         if (window.confirm('Are you sure you want to delete your account?')) {
 
-            //delete appointmnets first because i don't wanna change the db!
-            await fetch("http://localhost:8080/v1/donors/" + user.id +"/appointments", {
-              method: "DELETE"
-            }).catch((err) => {
-              console.log(err.message)
-            })
-
             //then delete account
-            await fetch("http://localhost:8080/v1/donors/" + user.id, {
+            fetch("http://localhost:8080/v1/donors/" + user.id, {
                 method: "DELETE"
             }).then((res) => {
                 alert('Account successfully deleted.')

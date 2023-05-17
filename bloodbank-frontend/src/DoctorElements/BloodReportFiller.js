@@ -41,7 +41,7 @@ const BloodReportFiller = () => {
             hgb: inputValues[14],
             hct: inputValues[15],
             appointment: {id: id},
-            doctor: {uuid: user.id}
+            doctor: {id: user.id}
           })
       };
 

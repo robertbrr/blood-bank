@@ -32,6 +32,11 @@ const AppointmentListingDoctor = () => {
         navigate(`/doctor/appointments/${id}/confirm`);
     }
 
+    //view results handler    
+    const ViewResults = (id) =>{
+        navigate(`/doctor/appointments/${id}/blood-report`);
+    }
+
     //fetch all appts
     function fetchAllAppointments(pageNoParam, pageSizeParam){
         fetch(`http://localhost:8080/v1/donation-centers/${center.id}/appointments?pageNo=${pageNoParam-1}&pageSize=${pageSizeParam}`)
@@ -103,7 +108,7 @@ const AppointmentListingDoctor = () => {
                                     <td>{item.status}</td>
                                     <td>{item.donor.firstName +' ' + item.donor.lastName}</td>
                                     <td class = "center-align">{item.status === "PENDING" && <button onClick={() => { ConfirmAppointment(item.id) }} type="edit">Confirm</button> ||
-                                    item.status === "CONFIRMED" && <button onClick={() => { ConfirmAppointment(item.id) }} type="edit">View Results</button>}</td>
+                                    item.status === "CONFIRMED" && <button onClick={() => { ViewResults(item.id) }} type="edit">View Results</button>}</td>
                                 </tr>
                             ))
                         }

@@ -9,12 +9,11 @@ public class BloodReport {
     @SequenceGenerator(name = "idgenerator", initialValue = 1000)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.MERGE, orphanRemoval = true)
     @JoinColumn(name = "appointment_id")
     private Appointment appointment;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "doctor_id")
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Doctor doctor;
 
     private Double glucose;

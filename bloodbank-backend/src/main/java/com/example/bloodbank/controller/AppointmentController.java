@@ -36,9 +36,6 @@ public class AppointmentController {
         this.confirmMessage = new Message(MessageType.CONFIRMATION);
     }
 
-    //not sure if these mapping namings are adequate (lmk if I should rename these)
-    //one has appointments because we don't care who schedules it when saving
-    //because we send the whole appointment dto
     @PostMapping("appointments")
     ResponseEntity<String> saveAppointment(@RequestBody AppointmentCreateDTO dto){
         try{
@@ -51,7 +48,6 @@ public class AppointmentController {
             message.putInfo(appointment);
 
             //send message
-            //this actually works I promise (I tested it)
             //MessageSender messageSender = messageSenderFactory.create(appointment.getReminderType());
             //messageSender.send(message);
 
@@ -61,8 +57,6 @@ public class AppointmentController {
         }
     }
 
-    //other one is mapped to donors/id/appointments because
-    //we get them based on the donor id
     @GetMapping("donors/{id}/appointments")
     ResponseEntity<List<Appointment>> getAppointmentsByDonorId(@PathVariable("id") UUID id,
                                                                @RequestParam("canScheduleCheck") Boolean canScheduleCheck){
@@ -78,9 +72,6 @@ public class AppointmentController {
         return ResponseEntity.ok().body("Success!");
     }
 
-    // @Transactional
-    // error if the appointment is not deleted when using @Transactional
-    // does @Transactional require the delete operation to be mandatory?
     @DeleteMapping("appointments/{id}")
     ResponseEntity<String> deleteAppointment(@PathVariable("id") long id, @RequestBody LocalDate date){
         try{
