@@ -80,7 +80,7 @@ const AppointmentListingDoctor = () => {
     return (
         <div className="app2">
             
-            <h8></h8>
+            <h6></h6>
 
             <select id ='select' onChange={handleSelectChange} class = "styled-select">             
                 {viewAppointmentsOptions.map(item => {

@@ -1,5 +1,6 @@
 import { bloodReport } from "../utils";
 import { useState, useEffect } from "react";
+import "../styles.css"
 
 const BloodReportListing = (id) => {
     let bloodReportObject;
@@ -11,7 +12,10 @@ const BloodReportListing = (id) => {
             'albumin', 'globulin', 'wbc', 'rbc', 'hgb', 'hct'];
         const extractedFields = fieldsToExtract.map((field) => bloodReportObject[field]);
         setBloodReportArray(extractedFields);
-        
+    }
+
+    const ExportAsPDF = () => {
+
     }
   
     const fetchBloodReport = () =>{
@@ -40,6 +44,8 @@ const BloodReportListing = (id) => {
     useEffect(() => { fetchBloodReport(); },[]);
     return (
         <div className="app2">
+            <h20></h20>
+            <button onClick={() => {ExportAsPDF() }} type="edit">Download</button>
             <div className="table-container">
                 <table>
                     <thead>
