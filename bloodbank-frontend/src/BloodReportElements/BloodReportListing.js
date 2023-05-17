@@ -26,12 +26,15 @@ const BloodReportListing = (id) => {
     };
 
     const ExportAsPDF = () => {
-        const doc = new jsPDF('portrait', 'pt', 'a4');
+        const doc = new jsPDF('portrait', 'pt', 'letter');
         
         //this converts the jsx code of the table to html for jsPDF
         const table1 = document.createElement('table')
         const staticElement = renderToStaticMarkup(apptInfoTable)
         table1.innerHTML = staticElement
+
+        var width = doc.internal.pageSize.getWidth()
+        doc.text('Blood Report', width/2, 20, { align: 'center' })
 
         //render table1 (header)
         doc.html(table1);
