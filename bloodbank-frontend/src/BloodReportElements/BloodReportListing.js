@@ -1,42 +1,43 @@
 import { bloodReport } from "../utils";
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from 'react-router-dom';
-import UserContext from '../user-context';
 
-const BloodReportListing = (appointmentId) => {
-    const [bloodReport, setBloodReport] = useState('');
-    const [bloodReportArray, setBloodReportArray] = useState(Array(16).fill(''));
-
-    const extractFields = (bloodReportParam) => {
+const BloodReportListing = (id) => {
+    let bloodReportObject;
+    const [bloodReportArray, setBloodReportArray] = useState([]);
+  
+    const extractFields = async () => {
         const fieldsToExtract = ['glucose', 'sodium', 'potassium', 'chloride',
             'magnesium', 'calcium', 'cholesterol', 'protein', 'iron', 'bilirubin',
             'albumin', 'globulin', 'wbc', 'rbc', 'hgb', 'hct'];
-        const extractedFieldsArray = fieldsToExtract.map((field) => bloodReportParam[field]);
-        setBloodReportArray(extractedFieldsArray);
+        const extractedFields = fieldsToExtract.map((field) => bloodReportObject[field]);
+        setBloodReportArray(extractedFields);
+        
     }
-
-    function fetchBloodReport() {
-        fetch(`http://localhost:8080/v1/blood-reports/${appointmentId}`,
-            { method: "GET", headers: { 'Content-Type': 'application/json' } })
+  
+    const fetchBloodReport = () =>{
+        fetch(`http://localhost:8080/v1/blood-reports/${id}`,
+            { method: "GET" })
             .then(async res => {
                 console.log(res);
                 if (!res.ok) {
                     const text = await res.text();
                     throw new Error(text);
                 }
-                return res.text();
+                return res.json();
             })
-            .then((res) => {
-                setBloodReport(res);
-                console.log(bloodReportArray);
+            .then(async (res) => {
+                bloodReportObject = res;
+                extractFields(res)
+                console.log("RES",res);
+                console.log("bloodreport",bloodReportObject);
+                console.log("bloodreportArray",bloodReportArray);
             })
-            .then(extractFields(bloodReport))
             .catch((err) => {
                 console.log(err.message);
                 alert(err.message);
             })
     }
-    useEffect(() => { fetchBloodReport() });
+    useEffect(() => { fetchBloodReport(); },[]);
     return (
         <div className="app2">
             <div className="table-container">
@@ -50,7 +51,7 @@ const BloodReportListing = (appointmentId) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {bloodReport.map((item, index) => (
+                        {bloodReport && bloodReport.map((item, index) => (
                             <tr key={index}>
                                 <td>{item.name}</td>
                                 <td>{bloodReportArray[index]}</td>
@@ -64,6 +65,6 @@ const BloodReportListing = (appointmentId) => {
             <h1>{'\u00A0'}</h1>
         </div>
     );
-}
-
-export default BloodReportListing;
+  }
+  
+  export default BloodReportListing;

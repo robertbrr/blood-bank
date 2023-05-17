@@ -22,6 +22,7 @@ import DoctorPage from "./DoctorElements/DoctorPage";
 import AppointmentListingDoctor from "./DoctorElements/AppointmentListingDoctor";
 import BloodReportFiller from "./DoctorElements/BloodReportFiller";
 import BloodReportListingDoctor from "./DoctorElements/BloodReportListingDoctor";
+import BloodReportListingDonor from "./DonorElements/BloodReportListingDonor";
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
           <Route path='/donor/edit' element={<> <DonorNavbar/> <DonorEdit/> </>}/>
           <Route path='/donor/schedule' element={<> <DonorNavbar/> <AppointmentCreate/> </>}/>
           <Route path='/donor/appointments' element={<> <DonorNavbar/> <AppointmentListing/> </>}/>
+          <Route path='/donor/appointments/:id/blood-report' element={<> <DonorNavbar/> <BloodReportListingDonor/> </>}/>
         
           <Route path='/doctor/home' element={<> <DoctorNavbar/> <DoctorPage/> </>}/>
           <Route path='/doctor/appointments' element={<> <DoctorNavbar/> <AppointmentListingDoctor/> </>}/>
