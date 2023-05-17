@@ -1,44 +1,46 @@
-
 import '../styles.css'
 import { useState,useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { bloodReport } from '../utils';
 
 const BloodReportListingDoctor = () => {
-  const [bloodReport, setBloodReport] = useState(null);
-  const [bloodReportArray, setBloodReportArray] = useState(null);
-  const { appointmentId } = useParams()
+  let bloodReportObject;
+  const [bloodReportArray, setBloodReportArray] = useState([]);
+  const { id } = useParams()
 
-  const extractFields = (bloodReportParam) => {
+  const extractFields = async () => {
       const fieldsToExtract = ['glucose', 'sodium', 'potassium', 'chloride',
           'magnesium', 'calcium', 'cholesterol', 'protein', 'iron', 'bilirubin',
           'albumin', 'globulin', 'wbc', 'rbc', 'hgb', 'hct'];
-      const extractedFieldsArray = fieldsToExtract.map((field) => bloodReportParam[field]);
-      setBloodReportArray(extractedFieldsArray);
+      const extractedFields = fieldsToExtract.map((field) => bloodReportObject[field]);
+      setBloodReportArray(extractedFields);
+      
   }
 
-  const fetchBloodReport = (id) =>{
+  const fetchBloodReport = () =>{
       fetch(`http://localhost:8080/v1/blood-reports/${id}`,
-          { method: "GET", headers: { 'Content-Type': 'application/json' } })
+          { method: "GET" })
           .then(async res => {
               console.log(res);
               if (!res.ok) {
                   const text = await res.text();
                   throw new Error(text);
               }
-              return res.text();
+              return res.json();
           })
           .then(async (res) => {
-              setBloodReport(res);
-              console.log(bloodReport);
-              return res;
+              bloodReportObject = res;
+              extractFields(res)
+              console.log("RES",res);
+              console.log("bloodreport",bloodReportObject);
+              console.log("bloodreportArray",bloodReportArray);
           })
-          .then((res)=>{extractFields(res); console.log(bloodReportArray)})
           .catch((err) => {
               console.log(err.message);
               alert(err.message);
           })
   }
-  useEffect(() => { fetchBloodReport(1751) },[]);
+  useEffect(() => { fetchBloodReport(); },[]);
   return (
       <div className="app2">
           <div className="table-container">

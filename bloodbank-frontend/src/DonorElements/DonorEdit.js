@@ -43,8 +43,6 @@ const DonorEdit = () => {
 
   const DeleteSelf = () => {
         if (window.confirm('Are you sure you want to delete your account?')) {
-
-            //then delete account
             fetch("http://localhost:8080/v1/donors/" + user.id, {
                 method: "DELETE"
             }).then((res) => {
@@ -56,7 +54,6 @@ const DonorEdit = () => {
             })
         }
     }
-
 
   //handle select bloodType select
   const handleBloodTypeChange = event => {
