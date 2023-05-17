@@ -15,7 +15,7 @@ const AppointmentCreate = () => {
   //get uuid from state
   const [user, setUser] = useContext(UserContext)
   const navigate = useNavigate();
-  const months_available = 3;
+  const months_available = 12;
   const currDate = new Date().toISOString().split("T")[0];
   const [date,setDate] = useState(new Date().toISOString().split("T")[0]);
   const [fullDays, setFullDays] = useState([]);
@@ -88,7 +88,7 @@ const AppointmentCreate = () => {
         navigate('/donor/centers');
       })
       .catch(e => {
-        setErrorMessage(e.message);
+        alert(e.message);
         console.log(e.message);
       })
   }

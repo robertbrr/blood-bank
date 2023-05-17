@@ -27,7 +27,6 @@ public class AppointmentController {
     private final DonorService donorService;
     private final MessageSenderFactory messageSenderFactory;
     private final Message confirmMessage;
-    private static final Long DURATION_BETWEEN_APPOINTMENTS = 6L;
 
     public AppointmentController(AppointmentService appointmentService, DonorService donorService, MessageSenderFactory messageSenderFactory) {
         this.appointmentService = appointmentService;
@@ -58,12 +57,8 @@ public class AppointmentController {
     }
 
     @GetMapping("donors/{id}/appointments")
-    ResponseEntity<List<Appointment>> getAppointmentsByDonorId(@PathVariable("id") UUID id,
-                                                               @RequestParam("canScheduleCheck") Boolean canScheduleCheck){
-        if(canScheduleCheck == null || !canScheduleCheck) {
-            return ResponseEntity.ok(appointmentService.findByDonorId(id));
-        }else
-            return ResponseEntity.ok(appointmentService.findByDonor_IdAndDateAfter(id,LocalDate.now().minusMonths(DURATION_BETWEEN_APPOINTMENTS)));
+    ResponseEntity<List<Appointment>> getAppointmentsByDonorId(@PathVariable("id") UUID id){
+        return ResponseEntity.ok(appointmentService.findByDonorId(id));
     }
 
     @DeleteMapping("donors/{id}/appointments")

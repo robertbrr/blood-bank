@@ -10,27 +10,9 @@ const CenterListing = () => {
     const DURATION_BETWEEN_APPOINTMENTS = 6;
 
     //schedule button handler
+    //schedule button handler
     const ScheduleAppointment = (center) => {
-        //we check if we can actually schedule an appointment
-        fetch(`http://localhost:8080/v1/donors/${user.id}/appointments?canScheduleCheck=true`)
-        .then((res) => {
-            return res.json();
-        })
-        .then((res) => {
-            console.log(res);
-            if(res.length === 0){
-                navigate('/donor/schedule',{state:center});
-            }
-            else{
-                alert(
-                    `Can not schedule appointment.\n`+
-                    `Your last appointment was scheduled on ${res[0].date}!\n`+
-                    `You can donate again starting from ${dayjs(res[0].date).add(DURATION_BETWEEN_APPOINTMENTS, 'month').format().split("T")[0]}.`)
-            }
-        })
-        .catch((err) => {
-            console.log(err.message);
-        })
+        navigate('/donor/schedule',{state:center});
     }
 
     //time parsers
