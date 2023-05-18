@@ -44,7 +44,7 @@ const AppointmentListing = () => {
 
     //fetch appts
     function fetchAppointments() {
-        fetch(`http://localhost:8080/v1/donors/${user.id}/appointments?canScheduleCheck=false`)
+        fetch(`http://localhost:8080/v1/appointments/donors/${user.id}`)
             .then((res) => {
                 return res.json();
             })
