@@ -10,7 +10,6 @@ const CenterListing = () => {
     const DURATION_BETWEEN_APPOINTMENTS = 6;
 
     //schedule button handler
-    //schedule button handler
     const ScheduleAppointment = (center) => {
         navigate('/donor/schedule',{state:center});
     }
