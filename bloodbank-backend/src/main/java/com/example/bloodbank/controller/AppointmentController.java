@@ -56,15 +56,9 @@ public class AppointmentController {
         }
     }
 
-    @GetMapping("donors/{id}/appointments")
+    @GetMapping("appointments/donors/{id}")
     ResponseEntity<List<Appointment>> getAppointmentsByDonorId(@PathVariable("id") UUID id){
         return ResponseEntity.ok(appointmentService.findByDonorId(id));
-    }
-
-    @DeleteMapping("donors/{id}/appointments")
-    ResponseEntity<String> deleteAppointmentsByDonorId(@PathVariable("id") UUID id){
-        appointmentService.deleteByDonorId(id);
-        return ResponseEntity.ok().body("Success!");
     }
 
     @DeleteMapping("appointments/{id}")
@@ -75,6 +69,12 @@ public class AppointmentController {
         }catch(InvalidParameterException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @PutMapping("appointments/{id}/confirm")
+    ResponseEntity<String> confirmAppointment(@PathVariable long id){
+        appointmentService.confirm(id);
+        return ResponseEntity.ok("Appointment confirmed!");
     }
 
     @GetMapping("donation-centers/{id}/appointments")
@@ -91,10 +91,5 @@ public class AppointmentController {
         return ResponseEntity.ok(appointments);
     }
 
-    @PutMapping("appointments/{id}/confirm")
-    ResponseEntity<String> confirmAppointment(@PathVariable long id){
-        appointmentService.confirm(id);
-        return ResponseEntity.ok("Appointment confirmed!");
-    }
 
 }

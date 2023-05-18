@@ -9,5 +9,6 @@ import java.util.UUID;
 public interface DonorRepository extends JpaRepository<Donor,Long> {
 
     Optional<Donor> findById(UUID id);
+
     void deleteById(UUID id);
 }

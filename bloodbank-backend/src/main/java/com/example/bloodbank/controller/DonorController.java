@@ -17,12 +17,12 @@ import java.util.UUID;
 @RestController
 @CrossOrigin
 @RequestMapping("v1/")
-public class DonorControlller {
+public class DonorController {
 
     private final DonorService donorService;
     private final AppointmentService appointmentService;
 
-    public DonorControlller(DonorService donorService, AppointmentService appointmentService) {
+    public DonorController(DonorService donorService, AppointmentService appointmentService) {
         this.donorService = donorService;
         this.appointmentService = appointmentService;
     }

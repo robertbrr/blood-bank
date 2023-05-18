@@ -6,7 +6,6 @@ import com.example.bloodbank.entity.Donor;
 import com.example.bloodbank.entity.User;
 import org.springframework.stereotype.Component;
 
-
 @Component
 public class UserMapper {
 

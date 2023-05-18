@@ -4,7 +4,6 @@ import com.example.bloodbank.service.messagehandler.messagesender.MailSender;
 import com.example.bloodbank.service.messagehandler.messagesender.MessageSender;
 import com.example.bloodbank.service.messagehandler.messagesender.SMSSender;
 import com.example.bloodbank.types.ReminderType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
