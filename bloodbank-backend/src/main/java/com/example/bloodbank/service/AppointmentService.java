@@ -10,6 +10,8 @@ import java.util.UUID;
 
 public interface AppointmentService {
 
+    Long DURATION_BETWEEN_APPOINTMENTS = 6L;
+
     Appointment saveAppointment(AppointmentCreateDTO dto);
 
     void deleteById(Long id,LocalDate date);
@@ -27,4 +29,5 @@ public interface AppointmentService {
     List<LocalDate> getInvalidDates(Long donationCenterId, Integer maxDonationsPerDay, LocalDate dateLimit);
 
     List<Appointment> findByDate(LocalDate date);
+
 }

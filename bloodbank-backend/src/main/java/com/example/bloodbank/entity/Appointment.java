@@ -1,5 +1,6 @@
 package com.example.bloodbank.entity;
 
+import com.example.bloodbank.types.ReminderType;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -20,8 +21,7 @@ public class Appointment {
 
     private String status;
 
-    //should I change this to an enum? most likely
-    private String reminderType;
+    private ReminderType reminderType;
 
     public Long getId() {
         return id;
@@ -63,11 +63,11 @@ public class Appointment {
         this.status = status;
     }
 
-    public String getReminderType() {
+    public ReminderType getReminderType() {
         return reminderType;
     }
 
-    public void setReminderType(String reminderType) {
+    public void setReminderType(ReminderType reminderType) {
         this.reminderType = reminderType;
     }
 

@@ -18,6 +18,7 @@ public class DonorMapper {
         donor.setFirstName(dto.getFirstName());
         donor.setLastName(dto.getLastName());
         donor.setPhoneNumber(dto.getPhoneNumber());
+        donor.setBloodType(dto.getBloodType());
         return donor;
     }
 
@@ -30,6 +31,7 @@ public class DonorMapper {
         donor.setFirstName(dto.getFirstName());
         donor.setLastName(dto.getLastName());
         donor.setPhoneNumber(dto.getPhoneNumber());
+        donor.setBloodType(dto.getBloodType());
         return donor;
     }
 

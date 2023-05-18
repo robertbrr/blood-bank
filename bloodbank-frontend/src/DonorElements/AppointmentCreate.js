@@ -8,25 +8,20 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import '../styles.css';
+import { convertToDate, notificationOptions } from '../utils';
 
 const AppointmentCreate = () => {
 
   //get uuid from state
   const [user, setUser] = useContext(UserContext)
   const navigate = useNavigate();
-  const months_available = 3;
+  const months_available = 12;
   const currDate = new Date().toISOString().split("T")[0];
   const [date,setDate] = useState(new Date().toISOString().split("T")[0]);
   const [fullDays, setFullDays] = useState([]);
   const [errorMessage,setErrorMessage] = useState('');
   const {state:center} = useLocation();
-
-  const options = [
-    {id: 1, name: "Email"},
-    {id: 2, name: "SMS"}
-  ]
-
-  const [reminderType, setReminderType] = useState(options[0].name);
+  const [reminderType, setReminderType] = useState(notificationOptions[0].name);
 
   useEffect(()=>{
     //fetch full days
@@ -43,22 +38,6 @@ const AppointmentCreate = () => {
         .catch(e => {
           console.log(e.message);
         })},[]);
-
-
-  //from date to LocalDate
-  const convertToDate = (date_param) => {
-    const selDate = new Date(date_param)
-    const year = selDate.getFullYear();
-    const month = selDate.getMonth() + 1; //0 index in JS
-    const day = selDate.getDate();
-    //this certainly does things
-    const localDate = `${year}-${month < 10 ? "0" + month : month}-${
-      day < 10 ? "0" + day : day
-    }`;
-    console.log(localDate);
-    return localDate;
-  };
-
   
   //disable dates
   //i made it so a user can only schedule x months in advance
@@ -109,7 +88,7 @@ const AppointmentCreate = () => {
         navigate('/donor/centers');
       })
       .catch(e => {
-        setErrorMessage(e.message);
+        alert(e.message);
         console.log(e.message);
       })
   }
@@ -125,7 +104,6 @@ const AppointmentCreate = () => {
             <DemoContainer components={['DatePicker']}>
               <DatePicker 
                 defaultValue = {dayjs(new Date().toISOString().split("T")[0])}
-                
                 shouldDisableDate={(e)=>disableDates(e.$d)}
                 onChange={(e)=>handleDateChange(e.$d)}
               />
@@ -136,7 +114,7 @@ const AppointmentCreate = () => {
         <div className="input-container">
             <label>Notify me by</label>
             <select id ='select' onChange={handleSelectChange} >             
-                {options.map(item => {
+                {notificationOptions.map(item => {
                   return (<option key={item.id} value={item.name}> {item.name}</option>);
                 })}
             </select>

@@ -5,6 +5,7 @@ import com.example.bloodbank.entity.Doctor;
 
 import com.example.bloodbank.entity.DonationCenter;
 import com.example.bloodbank.entity.User;
+import com.example.bloodbank.repository.BloodReportRepository;
 import com.example.bloodbank.repository.DoctorRepository;
 import com.example.bloodbank.repository.UserRepository;
 import com.example.bloodbank.service.DoctorService;
@@ -21,11 +22,13 @@ public class DoctorServiceImpl implements DoctorService {
 
     private final DoctorRepository doctorRepository;
     private final UserRepository userRepository;
+    private final BloodReportRepository bloodReportRepository;
     private final DoctorMapper doctorMapper;
 
-    public DoctorServiceImpl(DoctorRepository doctorRepository, UserRepository userRepository, DoctorMapper doctorMapper) {
+    public DoctorServiceImpl(DoctorRepository doctorRepository, UserRepository userRepository, BloodReportRepository bloodReportRepository, DoctorMapper doctorMapper) {
         this.doctorRepository = doctorRepository;
         this.userRepository = userRepository;
+        this.bloodReportRepository = bloodReportRepository;
         this.doctorMapper = doctorMapper;
     }
 
@@ -67,6 +70,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public void deleteDoctorById(UUID id) {
+        this.bloodReportRepository.deleteByDoctor_Id(id);
         this.doctorRepository.deleteById(id);
     }
 }

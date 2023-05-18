@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import UserContext from '../user-context';
 import { useContext } from 'react';
 import '../styles.css';
+import { bloodTypes } from '../utils';
 
 const DonorEdit = () => {
 
@@ -16,6 +17,7 @@ const DonorEdit = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber,setPhoneNumber] = useState('');
+  const [bloodType, setBloodType] = useState('');
   const [errorMessage, setErrorMessage] = useState(''); 
   
   const navigate = useNavigate();
@@ -33,23 +35,15 @@ const DonorEdit = () => {
           setLastName(res.lastName);
           setEmail(res.email);
           setPhoneNumber(res.phoneNumber);
+          setBloodType(res.bloodType);
       }).catch((err) => {
           console.log(err.message);
       });
   },[]);
 
-  const DeleteSelf = async () => {
+  const DeleteSelf = () => {
         if (window.confirm('Are you sure you want to delete your account?')) {
-
-            //delete appointmnets first because i don't wanna change the db!
-            await fetch("http://localhost:8080/v1/donors/" + user.id +"/appointments", {
-              method: "DELETE"
-            }).catch((err) => {
-              console.log(err.message)
-            })
-
-            //then delete account
-            await fetch("http://localhost:8080/v1/donors/" + user.id, {
+            fetch("http://localhost:8080/v1/donors/" + user.id, {
                 method: "DELETE"
             }).then((res) => {
                 alert('Account successfully deleted.')
@@ -60,6 +54,11 @@ const DonorEdit = () => {
             })
         }
     }
+
+  //handle select bloodType select
+  const handleBloodTypeChange = event => {
+    setBloodType(event.target.value);
+  }
 
   //handle form submit
   const handleSubmit = async(e) => {
@@ -76,7 +75,8 @@ const DonorEdit = () => {
           firstName: firstName,
           lastName: lastName,
           email: email,
-          phoneNumber: phoneNumber
+          phoneNumber: phoneNumber,
+          bloodType: bloodType
         })
     };
 
@@ -100,71 +100,75 @@ const DonorEdit = () => {
       })
   }
 
-  //form JSX
-  const renderForm = (
-    <div className="form">
-      <form onSubmit={handleSubmit}>
-        <div className="input-container">
-          <label>Username </label>
-          <input 
-            value ={username}
-            type="text" 
-            name="uname" 
-            required 
-            onChange={(event) => setUsername(event.target.value)}/>
-        </div>
+  //render first form column
+  const renderFormFirstColumn =(
+    <form onSubmit={handleSubmit}>
+      <div className="input-container">
+        <label>Username </label>
+        <input 
+          value = {username}
+          type="text" 
+          name="uname" 
+          required 
+          onChange={(event) => setUsername(event.target.value)}/>
+      </div>
 
-        <div className="input-container">
-          <label>Password </label>
-          <input 
-            type="password" 
-            name="pass" 
-            value={password}
-            required  
-            onChange={(event) => setPassword(event.target.value)} />
-        </div>
+      <div className="input-container">
+        <label>Password </label>
+        <input 
+          value = {password}
+          type="password" 
+          name="pass" 
+          required  
+          onChange={(event) => setPassword(event.target.value)} />
+      </div>
 
-        <div className="input-container">
-          <label>Confirm Password </label>
-          <input 
-            type="password" 
-            name="pass" 
-            value={confirmPassword}
-            required  
-            onChange={(event) => setConfirmPassword(event.target.value)} />
-        </div>
+      <div className="input-container">
+        <label>Confirm password </label>
+        <input 
+          value={confirmPassword}
+          type="password" 
+          name="passConfirm" 
+          required  
+          onChange={(event) => setConfirmPassword(event.target.value)} />
+      </div>
 
-        <div className="input-container">
-          <label>First name </label>
+      <div className="input-container">
+            <label>Email Address </label>
+            <input 
+              value = {email}
+              type="text" 
+              name="email" 
+              required  
+              onChange={(event) => setEmail(event.target.value)} />
+      </div>
+    </form>
+  )
+
+  //render second form column
+  const renderFormSecondColumn =(
+    <form onSubmit={handleSubmit}>
+      <div className="input-container">
+          <label>First name</label>
           <input 
+            value = {firstName}
             type="text" 
             name="fname" 
-            value={firstName}
             required  
             onChange={(event) => setFirstName(event.target.value)} />
-        </div>
+      </div>
 
-        <div className="input-container">
-          <label>Last name </label>
+      <div className="input-container">
+          <label>Last name</label>
           <input 
+            value = {lastName}
             type="text" 
             name="lname" 
-            value={lastName}
             required  
             onChange={(event) => setLastName(event.target.value)} />
-        </div>
+      </div>
 
-        <div className="input-container">
-          <label>Email Address </label>
-          <input 
-            type="text" 
-            name="email"
-            value={email} 
-            required  
-            onChange={(event) => setEmail(event.target.value)} />
-        </div>
-
-        <div className="input-container">
+      <div className="input-container">
           <label>Phone number </label>
           <input 
             type="text" 
@@ -174,26 +178,39 @@ const DonorEdit = () => {
             onChange={(event) => setPhoneNumber(event.target.value)} />
         </div>
 
-        {errorMessage && <div className="error"> {errorMessage} </div>}
-
-        <div className="button-container">
-          <input type="submit" value = "Confirm"/>
+        <div className="input-container">
+            <label>Blood Type</label>
+            <select id ='select' onChange={handleBloodTypeChange} class = "styled-select" value = {bloodType} >             
+                {bloodTypes.map(item => {
+                  return (<option key={item.id} value={item.value}> {item.name}</option>);
+                })}
+            </select>
         </div>
-      </form>
-      <div className="button-container">
-        <button onClick={() => { DeleteSelf() }} type="delete-account">Delete Account?</button>
+    </form>
+  )
+
+  //Form JSX
+  return (
+    <div className="app">
+      <h1 className="title">Enter your information:</h1>
+      <div className="split-form-container">
+        <div className="split-form">
+          {renderFormFirstColumn}
+          {renderFormSecondColumn}
+        </div>
+        <form onSubmit={handleSubmit}>
+          {errorMessage && <div className="error"> {errorMessage} </div>}
+          <div className="button-container">
+            <input type="submit" value = "Confirm"/>
+          </div>
+        </form>
+        <div className="button-container">
+          <button onClick={() => { DeleteSelf() }} type="delete-account">Delete Account?</button>
+        </div>
       </div>
     </div>
   );
-
-  return (
-    <div className="app">
-      <h1 className="title">Enter the information:</h1>
-        <div className="login-form">
-          {renderForm}
-        </div>
-    </div>
-  );
 }
+
 
 export default DonorEdit;

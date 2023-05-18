@@ -9,11 +9,25 @@
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
     background-color: #f8f9fd;
   }
+
+  .app2{
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 20px;
+    height: 100vh;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    background-color: #f8f9fd;
+    overflow: auto;
+  }
   
   input[type="text"],
   input[type="password"] {
-    height: 25px;
+    height: 30px;
     border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 0px 5px;
   }
   
   input[type="submit"] {
@@ -24,6 +38,7 @@
     border: 1px solid #0000ff;
     color: #fff;
     padding: 10px 20px;
+    border-radius: 6%;
   }
 
   button[type="delete-account"] {
@@ -31,6 +46,7 @@
     cursor: pointer;
     font-size: 15px;
     padding: 10px 20px;
+    border-radius: 6%;
   }
   
   input[type="submit"]:hover {
@@ -45,6 +61,7 @@
     border: 0px solid #000000; 
     color: #000000;
     padding: 5px 5px;
+    border-radius: 6%;
   }
 
   input[type="date"] {
@@ -70,14 +87,65 @@
     padding: 2rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
+
+  .split-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .split-form-container{
+    background-color: white;
+    padding: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .styled-select {
+    padding: 0px 3px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    background-color: #fff; 
+    color: #333; 
+    width: 200px; 
+    height: 32px;
+  }
+  
+  .styled-select:focus {
+    outline: none; 
+    border-color: #007bff; 
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  }
+
+  .welcome-page {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    flex-direction: column;
+  }
   
   .list-container {
     display: flex;
   }
+
+  .left-align {
+    text-align: left;
+  }
   
+  .right-align {
+    text-align: right;
+  }
+  
+  .center-align {
+    text-align: center;
+  }
+
   .error {
     color: red;
-    font-size: 12px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .title {
@@ -101,6 +169,7 @@
     border: 1px solid #0000ff;
     color: #fff;
     padding: 5px 20px;
+    border-radius: 6%;
   }
   
   button[type="edit"]:hover {
@@ -116,6 +185,7 @@
     border: 1px solid #ce0300;
     color: #fff;
     padding: 5px 20px;
+    border-radius: 6%;
   }
   
   button[type="delete"]:hover {
@@ -129,14 +199,18 @@
     padding: 2rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-left: 20px;
-  
+    margin-right: 20px;
+    /* width: 100%; */
   }
   .table-container {
     margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* width: 100%; */
   }
   th, td {
     padding: 8px;
-
     border-bottom: 1px solid #ddd;
   }
   

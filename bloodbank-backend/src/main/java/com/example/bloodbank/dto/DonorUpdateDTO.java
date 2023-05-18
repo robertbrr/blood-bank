@@ -1,5 +1,7 @@
 package com.example.bloodbank.dto;
 
+import com.example.bloodbank.types.BloodType;
+
 import java.util.UUID;
 
 public class DonorUpdateDTO {
@@ -12,6 +14,7 @@ public class DonorUpdateDTO {
     private String lastName;
     private String email;
     private String phoneNumber;
+    private BloodType bloodType;
 
     public UUID getId() {
         return id;
@@ -75,5 +78,13 @@ public class DonorUpdateDTO {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public BloodType getBloodType() {
+        return bloodType;
+    }
+
+    public void setBloodType(BloodType bloodType) {
+        this.bloodType = bloodType;
     }
 }

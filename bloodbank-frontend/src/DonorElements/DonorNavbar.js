@@ -1,4 +1,4 @@
-import {Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import UserContext from '../user-context';
 import '../navbar.css'
 import { useContext } from 'react';
@@ -22,9 +22,7 @@ const DonorNavbar = () => {
             <li>
               <NavLink to="/donor/edit">Edit Info</NavLink>
             </li>
-            <Link to ='/'>
-              <button type="logout" onClick={() =>setUser(null)}>Log out</button>
-            </Link>
+              <NavLink to ='/' onClick={() =>setUser(null)} >Log Out</NavLink>
           </ul>
         </div>
       </div>

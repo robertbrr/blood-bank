@@ -1,6 +1,7 @@
 package com.example.bloodbank.dto;
 
 import com.example.bloodbank.entity.DonationCenter;
+import com.example.bloodbank.types.ReminderType;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -10,7 +11,7 @@ public class AppointmentCreateDTO {
     private DonationCenter donationCenter;
     private UUID donorId;
     private LocalDate date;
-    private String reminderType;
+    private ReminderType reminderType;
 
     public DonationCenter getDonationCenter() {
         return donationCenter;
@@ -36,11 +37,11 @@ public class AppointmentCreateDTO {
         this.date = date;
     }
 
-    public String getReminderType() {
+    public ReminderType getReminderType() {
         return reminderType;
     }
 
-    public void setReminderType(String reminderType) {
+    public void setReminderType(ReminderType reminderType) {
         this.reminderType = reminderType;
     }
 }

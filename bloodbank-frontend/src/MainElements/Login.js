@@ -46,6 +46,7 @@ function Login() {
       } else if (role === "DOCTOR"){
         path = "/doctor/home";
       }
+
       setUser({ id: uuid });
       navigate(to || path, {replace : false});
     

@@ -4,6 +4,7 @@ import com.example.bloodbank.dto.DonorCreateDTO;
 import com.example.bloodbank.dto.DonorDTO;
 import com.example.bloodbank.dto.DonorUpdateDTO;
 import com.example.bloodbank.entity.Donor;
+import com.example.bloodbank.service.AppointmentService;
 import com.example.bloodbank.service.DonorService;
 
 import jakarta.transaction.Transactional;
@@ -19,9 +20,11 @@ import java.util.UUID;
 public class DonorControlller {
 
     private final DonorService donorService;
+    private final AppointmentService appointmentService;
 
-    public DonorControlller(DonorService donorService) {
+    public DonorControlller(DonorService donorService, AppointmentService appointmentService) {
         this.donorService = donorService;
+        this.appointmentService = appointmentService;
     }
 
     @GetMapping("/donors/{id}")
@@ -57,6 +60,7 @@ public class DonorControlller {
     @Transactional
     @DeleteMapping("/donors/{id}")
     ResponseEntity<String> deleteDonor(@PathVariable("id") UUID id){
+        this.appointmentService.deleteByDonorId(id);
         this.donorService.deleteDonorById(id);
         return ResponseEntity.ok().body("Successfully deleted!");
     }
