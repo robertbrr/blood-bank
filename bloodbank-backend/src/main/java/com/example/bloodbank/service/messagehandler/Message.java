@@ -2,6 +2,7 @@ package com.example.bloodbank.service.messagehandler;
 
 import com.example.bloodbank.entity.Appointment;
 import com.example.bloodbank.types.MessageType;
+import com.example.bloodbank.types.ReminderType;
 
 public class Message implements Cloneable{
     private String subject;
@@ -62,9 +63,9 @@ public class Message implements Cloneable{
         text = text.replaceFirst("&", appointment.getDate().toString());
 
         //set recipient
-        if(appointment.getReminderType().equals("SMS")){
+        if(appointment.getReminderType().equals(ReminderType.SMS)){
             this.recipient = appointment.getDonor().getPhoneNumber();
-        }else if(appointment.getReminderType().equals("Email")){
+        }else if(appointment.getReminderType().equals(ReminderType.EMAIL)){
             this.recipient = appointment.getDonor().getEmail();
         }
     }
